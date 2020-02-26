@@ -59,7 +59,8 @@ public class BetterMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && ableJump)
         {
-            rb.velocity = Vector2.up * verticalForce;
+            rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);
+            //rb.velocity = Vector2.up * verticalForce;
         }
         else
         {
@@ -79,6 +80,8 @@ public class BetterMovement : MonoBehaviour
 
         }
     }
+
+    
 
     //rb+= rb +
     void Start()
