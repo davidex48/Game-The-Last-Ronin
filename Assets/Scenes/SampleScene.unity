@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 571521062}
   - component: {fileID: 571521061}
   - component: {fileID: 571521066}
+  - component: {fileID: 571521067}
   m_Layer: 0
   m_Name: Player
   m_TagString: Mario
@@ -250,7 +251,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &571521063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -358,6 +359,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &571521067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571521060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c225e3f3550e54b891d7b21b198d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 130
+  startDashTime: 0.1
+  cooldown: 0.2
 --- !u!1 &620564280
 GameObject:
   m_ObjectHideFlags: 0
