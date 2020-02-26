@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: d32f5032ba4b08b4589e43f524472f74
+  productGUID: d8b078fd45f23e148b8a3682083368ac
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Game Ronin
+  productName: The Last Samurai
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -587,10 +587,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: dee0bdd1-247a-4635-84ac-5c45276cdcc0
+  cloudProjectId: 9447d4c4-053d-4de3-be7b-4f1d6655dc6d
   framebufferDepthMemorylessMode: 0
-  projectName: Game Ronin
-  organizationId: unity_wbqmevq9jmez7a
+  projectName: The Last Samurai
+  organizationId: jan_olcina
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
