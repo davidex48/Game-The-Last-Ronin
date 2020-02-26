@@ -9,42 +9,60 @@ public class BetterMovement : MonoBehaviour
     float velocity;
 
     Rigidbody2D rb;
-    float horizontalMove;
+    float horizontalMove = 10.0f;
     [SerializeField]
     float verticalForce = 10.0f;
     bool isGrounded;
+    bool ableJump;
 
     float fallMultiplier = 2.5f;
     float lowJumpMultiplier = 2.0f;
-    private void Awake()
+
+    private void FixedUpdate()
+    {
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+        for (int i = 0; i < collider.Length; i++)
+        {
+            //Debug.Log("THE COLLISION WAS WITH " + collider[i].gameObject.tag);
+            if (collider[i].gameObject.tag == "Ground")
+            {
+                ableJump = true;
+            }
+        }
+
+        BetterJump();
+        MoveCharacter();
+    }
+
+
+
     // cuando se ejecuta Brackeys
+    private void Awake()
     {
         isGrounded = false;
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void moveCharacter()
+    void MoveCharacter()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
         Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
         Vector2 m_velocity = Vector2.zero;
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f);
-
     }
-    bool wasPressed;
+
+    
     void BetterJump()
-    // Use this for initialization
     {
+        //Debug.Log("MIAU " + ableJump); if (Input.GetButtonDown("Jump")) { Debug.Log("JUMP!"); }
 
-
-        if (Input.GetButtonDown("Jump") && wasPressed)
+        if (Input.GetButtonDown("Jump") && ableJump)
         {
             rb.velocity = Vector2.up * verticalForce;
-
         }
         else
         {
-            wasPressed = false;
+            ableJump = false;
         }
 
         if (rb.velocity.y < 0)
@@ -60,32 +78,13 @@ public class BetterMovement : MonoBehaviour
 
         }
     }
+
     //rb+= rb +
     void Start()
     {
 
     }
-
-    private void FixedUpdate()
-    {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 1.0f);
-        for (int i = 0; i < collider.Length; i++)
-
-        {
-            if (collider[i].gameObject.tag == "Ground")
-
-            {
-                wasPressed = true;
-
-            }
-        }
-
-
-
-        BetterJump(); ;
-        moveCharacter();
-
-    }
+    
     // Update is called once per frame
     void Update()
     {
