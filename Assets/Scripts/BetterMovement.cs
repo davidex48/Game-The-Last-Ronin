@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BetterMovement : MonoBehaviour
 {
-
+    public Animator animator;
     [SerializeField]
     float velocity;
 
@@ -46,6 +46,7 @@ public class BetterMovement : MonoBehaviour
     void MoveCharacter()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
+        animator.SetFloat("Speed",Mathf.Abs (horizontalMove));
         Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
         Vector2 m_velocity = Vector2.zero;
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f);
@@ -88,6 +89,16 @@ public class BetterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 characterScale = transform.localScale;
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            characterScale.x = -2;
+        }
+        if (Input.GetAxis("Horizontal")>0)
 
+        {
+            characterScale.x = 2;
+        }
+        transform.localScale = characterScale; 
     }
 }
