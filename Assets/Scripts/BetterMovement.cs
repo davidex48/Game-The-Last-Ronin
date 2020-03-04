@@ -11,13 +11,13 @@ public class BetterMovement : MonoBehaviour
     Rigidbody2D rb;
     float horizontalMove = 10.0f;
     [SerializeField]
-    float verticalForce = 10.0f;
+    float verticalForce = 6.6f;
     bool isGrounded;
     bool ableJump;
     [SerializeField]
-    float fallMultiplier = 4.5f;
+    float fallMultiplier = 2.0f;
     [SerializeField]
-    float lowJumpMultiplier = 2.0f;
+    float lowJumpMultiplier = 3.5f;
 
     private void FixedUpdate()
     {
