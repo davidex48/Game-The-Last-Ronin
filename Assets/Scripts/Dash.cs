@@ -71,7 +71,8 @@ public class Dash : MonoBehaviour
                 if (direction == 2)
                 {
                     //rb.AddForce(Vector2.right * dashSpeed*100, 0);
-                    rb.velocity = Vector2.right * dashSpeed;
+                    //rb.velocity = Vector2.right * dashSpeed;
+                    rb.velocity = new Vector2( dashSpeed, rb.velocity.y);
                 }
                 canDash = false; //
             }
