@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BetterMovement : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class BetterMovement : MonoBehaviour
 
         BetterJump();
         MoveCharacter();
+        HandleLayers();
     }
 
 
@@ -54,6 +56,12 @@ public class BetterMovement : MonoBehaviour
         Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
         Vector2 m_velocity = Vector2.zero;
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f);
+
+        rb= GetComponent<Rigidbody2D>();
+
+        if (OnLandEvent == null)
+            OnLandEvent = new UnityEvent();
+
     }
 
     
@@ -65,6 +73,7 @@ public class BetterMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && ableJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);
+            animator.SetBool("IsJumping", true);
             //rb.velocity = Vector2.up * verticalForce;
         }
         else
@@ -85,6 +94,10 @@ public class BetterMovement : MonoBehaviour
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
 
         }
+    }
+   public void OnLanding()
+    {
+        animator.SetBool("IsJumping", false);
     }
 
     
@@ -110,4 +123,14 @@ public class BetterMovement : MonoBehaviour
         }
         transform.localScale = characterScale; 
     }
-}
+
+
+    private void HandleLayers()
+    {
+        if (!isGrounded)
+        {
+            animator.SetLayerWeight(1, 1);
+        }
+        animator.SetLayerWeight(1, 0);
+    }
+} 
