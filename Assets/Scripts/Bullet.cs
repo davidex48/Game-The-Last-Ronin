@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+<<<<<<< HEAD
     //public Transform posicionInicialKunai;
     public GameObject posicionInicialKunai;
     public GameObject Projectile;
@@ -15,10 +16,21 @@ public class Bullet : MonoBehaviour
     void Start()
     {
 
+=======
+    public Transform posicionInicialKunai;
+    public GameObject TexturesKunai;
+    // Start is called before the first frame update
+   
+
+    void Start()
+    {
+        
+>>>>>>> master
     }
 
     // Update is called once per frame
     void FixedUpdate()
+<<<<<<< HEAD
     {
        //elapsedTime += Time.deltaTime;
         if (Input.GetButtonDown("Fire1") )//&& elapsedTime > fireRate)//GetButton
@@ -27,6 +39,14 @@ public class Bullet : MonoBehaviour
         }
         //Instantiate(TexturesKunai, posicionInicialKunai.position, posicionInicialKunai.rotation);
     }
+=======
+    {
+    if (Input.GetButtonDown("Fire1"))
+    {
+         Instantiate(TexturesKunai, posicionInicialKunai.position, posicionInicialKunai.rotation);
+    }
+    }
+>>>>>>> master
 }
 
  /*   void PlayerShooting()
