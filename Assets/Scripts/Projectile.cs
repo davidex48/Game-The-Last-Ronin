@@ -56,11 +56,5 @@ public class Projectile : MonoBehaviour
              condi = false;
          }*/
         //transform.Translate(0, speed * Time.deltaTime, 0);
-
-
-
-
-
-
     }
 }
