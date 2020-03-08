@@ -25,6 +25,7 @@ public class Bullet : MonoBehaviour
         {
             Instantiate(Projectile, posicionInicialKunai.transform.position, posicionInicialKunai.transform.rotation);
         }
+        
         //Instantiate(TexturesKunai, posicionInicialKunai.position, posicionInicialKunai.rotation); 
     }
 }
