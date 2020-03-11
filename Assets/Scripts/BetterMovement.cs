@@ -59,9 +59,7 @@ public class BetterMovement : MonoBehaviour
 
         rb= GetComponent<Rigidbody2D>();
 
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
-
+       
     }
 
     
