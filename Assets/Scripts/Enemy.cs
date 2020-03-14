@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] public float actualLife;
     [SerializeField] float lifeAmount = 100;
-    [SerializeField] float speed = 0.1f;
-    [SerializeField] float pushMagnitude = 150.0f;
+    [SerializeField] float speed = 0.05f;
+    [SerializeField] float pushMagnitude = 10.0f;
     [SerializeField] public Transform player;
     [SerializeField] Image lifeBar;
 
