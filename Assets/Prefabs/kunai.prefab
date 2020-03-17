@@ -99,7 +99,7 @@ MonoBehaviour:
   player: {fileID: 0}
   bulletSpeed: 10
   bulletLife: 1
-  damage: 100
+  damageRef: 25
 --- !u!50 &5429764780369399614
 Rigidbody2D:
   serializedVersion: 4

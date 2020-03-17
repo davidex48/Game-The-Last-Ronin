@@ -4,30 +4,45 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
-    private Projectile kunai;
-    [SerializeField] public float actualLife;
-    [SerializeField] float lifeAmount = 100;
+
+    //public int enemyValue;
+    [SerializeField] private float damageValue;
+    [SerializeField] private float actualLife;
+    [SerializeField] public int lifeAmount;
     [SerializeField] float speed = 0.05f;
     [SerializeField] float pushMagnitude = 10.0f;
     [SerializeField] public Transform player;
     [SerializeField] Image lifeBar;
+    
 
-    public void damageReceived(float damageValue)
+    /*public void OnTriggerEnter2D(Collider2D collision)
     {
-        actualLife -= damageValue;
-        lifeBar.fillAmount = actualLife / lifeAmount;
-        if (actualLife <= 0)
+        if (collision.tag == "Kunai")
         {
-           // SpawnManager.instance.removeEnemy(this);
-            Destroy(gameObject);
-            Debug.Log("Damage Funct Kunai On. Marramiau");
+            actualLife -= Projectile.damage;
+
+            if (actualLife <= 0)
+            {
+                Destroy(gameObject);
+                Debug.Log(enemyValue);//Me devuelve el numero de puntos que se han ganado por matar al Enemy
+            }
         }
-    }
+    }*/
+     public void damageReceived(float damageValue)
+     {
+        /* actualLife -= damageValue;
+         lifeBar.fillAmount = actualLife / lifeAmount;
+         if (actualLife <= 0)
+         {
+            // SpawnManager.instance.removeEnemy(this);
+             Destroy(gameObject);
+             Debug.Log("Damage Funct Kunai On. Marramiau");
+         }*/
+     }
     // Use this for initialization
     void Start()
     {
-        
-        actualLife = lifeAmount;
+       
     }
 
     // Update is called once per frame

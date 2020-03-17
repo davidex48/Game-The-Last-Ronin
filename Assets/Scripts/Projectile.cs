@@ -16,7 +16,8 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D kunaiRB;
     public float bulletSpeed = 1.5f;
     public float bulletLife;
-    public int damage = 100;
+    public static int damage;
+    public int damageRef;
 
     // Start is called before the first frame update
 
@@ -24,7 +25,7 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        
+        damage = damageRef;
         kunaiRB = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerTrans = player.transform;
@@ -49,22 +50,31 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.5f);       //Detecta colision Con todo lo que tenga tag Enemy y me destruye el kunai. 
-                                                                                            //Problemas al llamar funciones de Enemy porque no me las detecta.
-        for (int i = 0; i < collider.Length; i++)
-        {
-            if (collider[i].gameObject.tag == "Enemy")
-            {
-
-                Destroy(gameObject);
-                //enemy1.damageReceived(damage);  //Null Reference exception 
-            }
-
-        }
-        //Si en destroy uso kunaiRB me elimina los components de la velocidad y el kunai se para pero no el objeto como tal!!!!!!!!!!!!!!!!!!!!
         Destroy(gameObject, bulletLife);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
+    /* Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.5f);       //Detecta colision Con todo lo que tenga tag Enemy y me destruye el kunai. 
+                                                                                         //Problemas al llamar funciones de Enemy porque no me las detecta.
+     for (int i = 0; i < collider.Length; i++)
+     {
+         if (collider[i].gameObject.tag == "Enemy")
+         {
+
+             Destroy(gameObject);
+             //enemy1.damageReceived(damage);  //Null Reference exception 
+         }
+
+     }*/
+    //Si en destroy uso kunaiRB me elimina los components de la velocidad y el kunai se para pero no el objeto como tal!!!!!!!!!!!!!!!!!!!!
+
+
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         enemy1 = collision.gameObject.GetComponent<Enemy>();
 
@@ -72,8 +82,9 @@ public class Projectile : MonoBehaviour
         {
             enemy1.damageReceived(damage);
         }
+    }*/
 
-    }
+
     //Object.Destroy(GameObject, bulletLife);
     //Destroy(kunaiRB, bulletLife);
     //DestroyObject(kunaiRB, bulletLife);
