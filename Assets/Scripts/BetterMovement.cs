@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,9 +7,8 @@ using UnityEngine.Events;
 public class BetterMovement : MonoBehaviour
 {
     public Animator animator;
-    [SerializeField]
-    float velocity;
 
+    public float velocity;   
     Rigidbody2D rb;
     float horizontalMove = 10.0f;
     [SerializeField]
@@ -19,6 +19,10 @@ public class BetterMovement : MonoBehaviour
     float fallMultiplier = 2.0f;
     [SerializeField]
     float lowJumpMultiplier = 3.5f;
+
+    public static float velxKunai;//PAra sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
+    public static float velyKunai;//
+    //static Vector2 kunaiVel = new Vector2(velxKunai, velyKunai);
 
     private void FixedUpdate()
     {
@@ -46,18 +50,19 @@ public class BetterMovement : MonoBehaviour
     private void Awake()
     {
         ableJump = false;
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();       
     }
 
     void MoveCharacter()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
         animator.SetFloat("Speed",Mathf.Abs (horizontalMove));
-        Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
+        Vector2 targetVelocity = new  Vector2(horizontalMove, rb.velocity.y);
         Vector2 m_velocity = Vector2.zero;
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f);
-
-        rb= GetComponent<Rigidbody2D>();
+        velxKunai = horizontalMove;
+        velyKunai = rb.velocity.y;
+        rb = GetComponent<Rigidbody2D>();
 
        
     }
@@ -112,12 +117,12 @@ public class BetterMovement : MonoBehaviour
         Vector3 characterScale = transform.localScale;
         if (Input.GetAxis("Horizontal") < 0)
         {
-            characterScale.x = -2;
+            characterScale.x = 2;
         }
         if (Input.GetAxis("Horizontal")>0)
 
         {
-            characterScale.x = 2;
+            characterScale.x = -2;
         }
         transform.localScale = characterScale; 
     }
