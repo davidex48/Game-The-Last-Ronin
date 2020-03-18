@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    [SerializeField]
+   /* [SerializeField]
     float apertureAngle = 10.0f;
     [SerializeField]
     float attackSpeed = 1.0f;
 
     [SerializeField]
-    float damage = 5.0f;
+    int damage = 5;
     bool attacking = false;
 
     private void OnDrawGizmos()
@@ -86,5 +86,5 @@ public class Sword : MonoBehaviour
             other.GetComponent<Enemy>().damageReceived(damage);
             other.GetComponent<Rigidbody2D>().AddForce((other.gameObject.transform.position - transform.position).normalized * 500.0f);
         }
-    }
+    }*/
 }

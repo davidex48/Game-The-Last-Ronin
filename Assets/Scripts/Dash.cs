@@ -43,7 +43,7 @@ public class Dash : MonoBehaviour
 
         else  //Si no estan OK
         {
-            if (dashTime <= 0)
+            if (dashTime <= 0)  //Asi mientras estoy en el dash no me cuenta el tiempo de cooldown, cuando salgo del dash si.
             {
                 direction = 0;
                 dashTime = startDashTime;
@@ -56,10 +56,6 @@ public class Dash : MonoBehaviour
                 }
 
             }
-
-
-
-
             else
             {
                 dashTime -= Time.deltaTime;

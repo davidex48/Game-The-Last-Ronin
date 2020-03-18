@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     public float bulletSpeed = 1.5f;
     public float bulletLife;
     public static int damage;
-    public int damageRef;
+    public int damageRef = 25;
 
     // Start is called before the first frame update
 

@@ -7,37 +7,25 @@ public class Enemy : MonoBehaviour
 
     //public int enemyValue;
     [SerializeField] private float damageValue;
-    [SerializeField] private float actualLife;
-    [SerializeField] public int lifeAmount;
+    //[SerializeField] private float actualLife;
+    //[SerializeField] public int lifeAmount;
     [SerializeField] float speed = 0.05f;
     [SerializeField] float pushMagnitude = 10.0f;
     [SerializeField] public Transform player;
     [SerializeField] Image lifeBar;
     
 
-    /*public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Kunai")
-        {
-            actualLife -= Projectile.damage;
-
-            if (actualLife <= 0)
-            {
-                Destroy(gameObject);
-                Debug.Log(enemyValue);//Me devuelve el numero de puntos que se han ganado por matar al Enemy
-            }
-        }
-    }*/
-     public void damageReceived(float damageValue)
+     public void damageReceived(int damageValue)
      {
-        /* actualLife -= damageValue;
-         lifeBar.fillAmount = actualLife / lifeAmount;
-         if (actualLife <= 0)
+        ManageEnemy.enemyHealth -= damageValue;
+        
+         //lifeBar.fillAmount = actualLife / lifeAmount;
+         if (ManageEnemy.enemyHealth <= 0)
          {
             // SpawnManager.instance.removeEnemy(this);
              Destroy(gameObject);
-             Debug.Log("Damage Funct Kunai On. Marramiau");
-         }*/
+             Debug.Log("Damage Funct CaC ON. Marramiau");
+         }
      }
     // Use this for initialization
     void Start()
@@ -48,16 +36,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* void OnCollisionEnter2D(Collision2D CollisionKunai)
-        {
-            if (CollisionKunai.gameObject.tag.Equals("Kunai"))
-            {
-                damageReceived(kunai.damage);
-            }
-        }*/
         Vector3 dirVec = player.transform.position - transform.position;
         transform.position += dirVec.normalized * speed;
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

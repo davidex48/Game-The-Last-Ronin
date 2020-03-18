@@ -5,6 +5,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //public Transform posicionInicialKunai;
+    public static bool canShoot;
+    public float coldownAfterAttack = 0.4f; //de momento publica hasta que definamos cuanto cooldown tendra. Despues la iniciaremos en start() en vez de aqui.
+    float resetColdownAfterAttack;
     public GameObject posicionInicialKunai;
     public GameObject Projectile;
     //public float fireRate = 0.5f;
@@ -13,19 +16,38 @@ public class Bullet : MonoBehaviour
 
 
     void Start()
-    {
-
+    {      
+        resetColdownAfterAttack = coldownAfterAttack;
+        canShoot = true;      
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //elapsedTime += Time.deltaTime; 
-        if (Input.GetButtonDown("Fire1"))//&& elapsedTime > fireRate)//GetButton 
+        ShootAndDelayAfterAttack();
+    }
+
+    void ShootAndDelayAfterAttack()
+    {
+        if (canShoot)
         {
-            Instantiate(Projectile, posicionInicialKunai.transform.position, posicionInicialKunai.transform.rotation);
+            if (Input.GetButtonDown("Fire1") && canShoot)//&& elapsedTime > fireRate)
+            {
+                Instantiate(Projectile, posicionInicialKunai.transform.position, posicionInicialKunai.transform.rotation); //Me crea el 
+            }
         }
-        
-        //Instantiate(TexturesKunai, posicionInicialKunai.position, posicionInicialKunai.rotation); 
+        else
+        { 
+            if (coldownAfterAttack > 0)
+                coldownAfterAttack -= Time.deltaTime;
+
+            else
+                {
+                    canShoot = true;
+                    coldownAfterAttack = resetColdownAfterAttack;
+                }
+            
+        }
     }
 }
+      
