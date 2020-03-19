@@ -14,7 +14,12 @@ GameObject:
   - component: {fileID: 1220261092281214366}
   - component: {fileID: 1220261092281214362}
   - component: {fileID: 8528823706613329366}
+<<<<<<< Updated upstream
   m_Layer: 8
+=======
+  - component: {fileID: 5443428726222665896}
+  m_Layer: 0
+>>>>>>> Stashed changes
   m_Name: goomba
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -142,7 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527d47da29a6be34592e087d114e93cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   damageValue: 100
+=======
+  damageValue: 0
+>>>>>>> Stashed changes
   actualLife: 100
   lifeAmount: 100
   speed: 0.05
@@ -161,3 +170,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8fd09fb023c0b4db90a51116116854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
+=======
+  enemyValue: 100
+  enemyHealth: 100
+--- !u!114 &5443428726222665896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220261092281214367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd08174ae2ca094b9a52150342030a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> Stashed changes

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SlowMotion : MonoBehaviour
+public class Ralentitzacio : MonoBehaviour
 {
 
     float currentAmount = 0f;
@@ -43,6 +43,6 @@ public class SlowMotion : MonoBehaviour
             Time.timeScale = 1.0f;
 
         }
-
+        
     }
 }
