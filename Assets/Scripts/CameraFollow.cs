@@ -13,10 +13,8 @@ public class CameraFollow : MonoBehaviour
     }
     private void LateUpdate()
     {
-        float posX = Mathf.Lerp(transform.position.x, player.transform.position.x
-            , Time.deltaTime * cameraSpeed);
-        float posY = Mathf.Lerp(transform.position.y, player.transform.position.y
-            , Time.deltaTime * cameraSpeed);
+        float posX = Mathf.Lerp(transform.position.x, player.transform.position.x, Time.deltaTime * cameraSpeed);
+        float posY = Mathf.Lerp(transform.position.y, player.transform.position.y, Time.deltaTime * cameraSpeed);
         transform.position = new Vector3(posX, posY, transform.position.z);
     }
     // Update is called once per frame
