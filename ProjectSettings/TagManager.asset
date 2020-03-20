@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Ground
   - Kunai
+  - Tierra
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - 
   - 
   - Enemy
-  - 
+  - Background
   - 
   - 
   - 
@@ -42,6 +44,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2129895403
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 972954355
     locked: 0
