@@ -9,7 +9,7 @@ public class attack_Player : MonoBehaviour
     public Transform attackPoint;
     public float attackRange;
     public LayerMask enemyLayers;
-    public static int attackDmg = 50;
+    public static int attackDmg = 100;
     // Start is called before the first frame update
 
 

@@ -18,6 +18,6 @@ public class Probaa : MonoBehaviour
         if (Input.GetButtonDown("C")) ;
 
 
-        timeManager.DoSlowmotion();
+    //    timeManager.DoSlowmotion();
     }
 }
