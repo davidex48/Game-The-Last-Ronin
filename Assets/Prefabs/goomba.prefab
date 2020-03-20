@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1220261092281214366}
   - component: {fileID: 1220261092281214362}
   - component: {fileID: 8528823706613329366}
+  m_Layer: 8
   m_Name: goomba
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -141,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527d47da29a6be34592e087d114e93cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageValue: 100
   actualLife: 100
   lifeAmount: 100
   speed: 0.05
@@ -159,4 +161,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8fd09fb023c0b4db90a51116116854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-

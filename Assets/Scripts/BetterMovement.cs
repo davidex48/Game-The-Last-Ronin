@@ -8,7 +8,6 @@ public class BetterMovement : MonoBehaviour
 {
     public Animator animator;
 
-
     public float velocity;   
     Rigidbody2D rb;
     float horizontalMove = 10.0f;
