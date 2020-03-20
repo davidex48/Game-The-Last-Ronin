@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class BetterMovement : MonoBehaviour
 {
     public Animator animator;
-
+    public static int life;
     public float velocity;   
     Rigidbody2D rb;
     float horizontalMove = 10.0f;
@@ -25,7 +25,7 @@ public class BetterMovement : MonoBehaviour
 
     void Start()
     {
-
+        life = 100;
     }
 
     //static Vector2 kunaiVel = new Vector2(velxKunai, velyKunai);
@@ -47,7 +47,11 @@ public class BetterMovement : MonoBehaviour
                 ableJump = true;
 
             }
-           // Debug.Log("THE COLLISION WAS WITH " + collider[i].gameObject.tag);
+            if(collider[i].gameObject.tag == "Enemy")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {
+                Destroy(gameObject);
+            }
+        
         }
 
         BetterJump();
@@ -151,4 +155,11 @@ public class BetterMovement : MonoBehaviour
         }
         animator.SetLayerWeight(1, 0);
     }
+    /*void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }*/
 } 
