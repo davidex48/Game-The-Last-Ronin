@@ -16,7 +16,7 @@ public class BetterMovement : MonoBehaviour
     bool isGrounded;
     bool ableJump;
     [SerializeField]
-    float fallMultiplier = 2.0f;
+    float fallMultiplier = 3.0f;
     [SerializeField]
     float lowJumpMultiplier = 3.5f;
 
@@ -34,32 +34,34 @@ public class BetterMovement : MonoBehaviour
         ableJump = false;
         rb = GetComponent<Rigidbody2D>();
     }
-    
+
     private void FixedUpdate()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.5f);
         for (int i = 0; i < collider.Length; i++)
         {
-           
+
             if (collider[i].gameObject.tag == "Ground")
             {
-               
+
                 ableJump = true;
 
             }
-            if(collider[i].gameObject.tag == "Enemy")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (collider[i].gameObject.tag == "Enemy")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 Destroy(gameObject);
             }
-        
+            if (collider[i].gameObject.tag == "Pendul")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {
+                Destroy(gameObject);
+            }
+
+            BetterJump();
+            MoveCharacter();
+            HandleLayers();
+            //BetterJump();
         }
-
-        BetterJump();
-        MoveCharacter();
-        HandleLayers();
-        //BetterJump();
     }
-
 
 
     // cuando se ejecuta Brackeys
@@ -116,7 +118,7 @@ public class BetterMovement : MonoBehaviour
     void BetterJump()
     {
         
-        //if (Input.GetButtonDown("Jump")) { Debug.Log("JUMP!"); }
+        
 
         if (Input.GetButtonDown("Jump") && ableJump)
         {

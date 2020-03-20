@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8766777322615926264}
   - component: {fileID: 5156789531895085893}
   - component: {fileID: 5646158104183883778}
+  - component: {fileID: 337165796252293514}
   m_Layer: 0
   m_Name: pendul
-  m_TagString: Untagged
+  m_TagString: Pendul
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8766777322615926267}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -13.29, y: 5.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &8766777322615926265
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -196,12 +197,24 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.008729935, y: 2.9555287}
-  m_ConnectedAnchor: {x: -13.28127, y: 8.175529}
+  m_ConnectedAnchor: {x: -16.24553, y: 5.2287297}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
+    m_MotorSpeed: 200
+    m_MaximumMotorForce: 1000
   m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!114 &337165796252293514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8766777322615926267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b35b7b6d1d8c104db1d21b09154d293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
