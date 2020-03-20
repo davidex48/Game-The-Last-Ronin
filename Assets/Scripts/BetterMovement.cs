@@ -7,11 +7,7 @@ using UnityEngine.Events;
 public class BetterMovement : MonoBehaviour
 {
     public Animator animator;
-<<<<<<< Updated upstream
-=======
-    [SerializeField]
-    public float velocity;
->>>>>>> Stashed changes
+
 
     public float velocity;   
     Rigidbody2D rb;
