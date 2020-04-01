@@ -15,7 +15,7 @@ public class attack_Player : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()//El bucle se ejecuta con una frequencia bastante mas baja que FixedUpdate. Esta bien realmente ponerlo aqui?
+    void Update()//El bucle se ejecuta con una frequencia bastante mas alta que FixedUpdate. 
     {
         InputAttack();
     }
@@ -41,7 +41,7 @@ public class attack_Player : MonoBehaviour
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);   //Me detecta colisiones a partir de circulo con (centro, radio
             foreach (Collider2D enemy in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
             {
-                enemy.GetComponent<Enemy>().damageReceived(attackDmg);  //
+                enemy.GetComponent<Enemy>().damageReceived(attackDmg);  
                 Debug.Log("Enemy Hit!!");
             }
 

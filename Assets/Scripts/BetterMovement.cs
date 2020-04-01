@@ -6,6 +6,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BetterMovement : MonoBehaviour
 {
+    public GameObject SpawnPoint;   //Hazerlo dinamico así GameObject.FindGameObjectWithTag("Player")
+                                    //GameObject.FindGameObjectWithTag("SpawnPoint")[0]
+
+
+
     public Animator animator;
     public static int life;
     public float velocity;   
@@ -35,7 +40,7 @@ public class BetterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.5f);
         for (int i = 0; i < collider.Length; i++)
@@ -47,20 +52,23 @@ public class BetterMovement : MonoBehaviour
                 ableJump = true;
 
             }
-            if (collider[i].gameObject.tag == "Enemy")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (collider[i].gameObject.tag == "Enemy")               
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                
+                this.transform.position = SpawnPoint.transform.position;
             }
-            if (collider[i].gameObject.tag == "Pendul")               //ME destruye al PJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (collider[i].gameObject.tag == "Pendul")               
             {
-                Destroy(gameObject);
+                this.transform.position = SpawnPoint.transform.position;
+                //Destroy(gameObject);
             }
-
+        }
             BetterJump();
             MoveCharacter();
             HandleLayers();
             //BetterJump();
-        }
+        
     }
 
 

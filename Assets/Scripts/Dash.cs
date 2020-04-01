@@ -25,7 +25,7 @@ public class Dash : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (direction == 0 && canDash)  //direction y canDash OK
         {
