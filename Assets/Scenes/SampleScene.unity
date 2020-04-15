@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 571521067}
   - component: {fileID: 571521068}
   - component: {fileID: 571521069}
+  - component: {fileID: 571521070}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -585,6 +586,7 @@ MonoBehaviour:
   animator: {fileID: 571521066}
   velocity: 10
   verticalForce: 6.6
+  ableJump: 0
   fallMultiplier: 2
   lowJumpMultiplier: 3.5
 --- !u!50 &571521062
@@ -615,7 +617,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571521060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -690,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571521060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.63, y: -0.26, z: 0}
+  m_LocalPosition: {x: 4.665, y: -0.309, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 2128629263}
@@ -766,6 +768,22 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!70 &571521070
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571521060}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.028734088, y: -0.00035381317}
+  m_Size: {x: 0.3808725, y: 0.39686012}
+  m_Direction: 0
 --- !u!1001 &698953036
 PrefabInstance:
   m_ObjectHideFlags: 0

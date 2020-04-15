@@ -69,7 +69,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().damageReceived(damage); 
+            collision.gameObject.GetComponent<Enemy>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
         }
         if (collision.tag == "Ground")
