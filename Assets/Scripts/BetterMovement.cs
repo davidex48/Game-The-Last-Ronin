@@ -16,7 +16,7 @@ public class BetterMovement : MonoBehaviour
     public static int life;
     public float velocity;   
     Rigidbody2D rb;
-    BoxCollider2D bc;
+    CapsuleCollider2D CapsulPlayerCol;               //Cambiar noms
     float horizontalMove = 10.0f;
     [SerializeField]
     float verticalForce = 6.6f;
@@ -27,7 +27,7 @@ public class BetterMovement : MonoBehaviour
     [SerializeField]
     float lowJumpMultiplier = 3.5f;
 
-    public static float velxKunai;//PAra sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
+    public static float velxKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
     public static float velyKunai;//
 
     void Start()
@@ -40,7 +40,7 @@ public class BetterMovement : MonoBehaviour
     {
         ableJump = false;
         rb = GetComponent<Rigidbody2D>();
-        bc = GetComponent<BoxCollider2D>();     //Deberia ser CapsuleCollider2D?¿  Pero no me deja llamarlo
+        CapsulPlayerCol = GetComponent<CapsuleCollider2D>();     
     }
 
     private void Update()
@@ -72,9 +72,8 @@ public class BetterMovement : MonoBehaviour
         //if (rb.velocity.y > asd) rb.velocity = new Vector2(rb.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
         BetterJump();
 
-     
-        //wallColRight();
-        wallColLeft();
+        //checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
+       
         HandleLayers();
         /*if (ableJump)//Para comprobar si de esta manera caigo 
         {      //Arreglar con RayCast
@@ -84,83 +83,60 @@ public class BetterMovement : MonoBehaviour
 
 
     }
-    bool wallColRight()
+    bool checkWallCol()
+    {
+        return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
+       /* bool toRetRight, toRetLeft;
+        toRetRight = wallCol(Vector2.right);
+        toRetLeft = wallCol(Vector2.left);          //Aqui evaluo les dues funcions tot i que al return si laprimera es true ja retorna true perque es OR ||
+
+        return toRetRight || toRetLeft;*/
+    }
+    bool wallCol(Vector2 v)
     {
         Color rayColor;
-        float dist = 0.2f;
-        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(bc.bounds.center, Vector2.right, bc.bounds.extents.x + dist);
+        float dist = 0.1f;
+        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(CapsulPlayerCol.bounds.center, v, CapsulPlayerCol.bounds.extents.x + dist);
         for (int i = 0; i < raycastHit.Length; i++)
         {
 
             if (raycastHit[i].collider.gameObject.tag == "Ground")
-            {
-
-                rayColor = Color.green;
-                Debug.DrawRay(bc.bounds.center, Vector2.down * (bc.bounds.center.y + dist), rayColor);
+            {            
+                rayColor = Color.magenta;
+                Debug.DrawRay(CapsulPlayerCol.bounds.center, v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
                 return true;
             }
         }
-        Debug.Log("RED");
-        rayColor = Color.red;
-        Debug.DrawRay(bc.bounds.center, Vector2.down * (bc.bounds.extents.y + dist), rayColor);
+      
+        rayColor = Color.cyan;
+        Debug.DrawRay(CapsulPlayerCol.bounds.center, v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor); //No hace falta que sea negativo imagino porque direccion la coje de los vectors
         return false;
 
 
     }
 
-    bool wallColLeft()
-    {
-        Color rayColor;
-        float dist = 0.2f;
-        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(bc.bounds.center, Vector2.left, - bc.bounds.extents.x - dist);
-        for (int i = 0; i < raycastHit.Length; i++)
-        {
-
-            if (raycastHit[i].collider.gameObject.tag == "Ground")
-            {
-
-                rayColor = Color.green;
-                Debug.DrawRay(bc.bounds.center, Vector2.down * (-bc.bounds.extents.y - dist), rayColor);
-                return true;
-            }
-        }
-        Debug.Log("RED");
-        rayColor = Color.red;
-        Debug.DrawRay(bc.bounds.center, Vector2.down * (-bc.bounds.extents.y - dist), rayColor);
-        return false;
-
-
-    }
 
     bool grounded()
     {
         Color rayColor;
-        float dist = 0.2f;
-        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(bc.bounds.center, Vector2.down, bc.bounds.extents.y + dist);
+        float dist = 0.1f;  //0.2
+        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(CapsulPlayerCol.bounds.center, Vector2.down, CapsulPlayerCol.bounds.extents.y + dist);
         for (int i = 0; i < raycastHit.Length; i++)
         {
             
             if (raycastHit[i].collider.gameObject.tag == "Ground")
             {
-                //Debug.Log("GREEN");
-                rayColor = Color.green;
-                Debug.DrawRay(bc.bounds.center, Vector2.down * (bc.bounds.extents.y + dist), rayColor);
-                return true;
-            }
-
-
-            /*if (raycastHit != null)    // if (raycastHit.collider != null)
-            {
                 
                 rayColor = Color.green;
-            }*/                                                                     
+                Debug.DrawRay(CapsulPlayerCol.bounds.center, Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+                return true;
+            }                                                                     
         }
-        //Debug.Log("RED");
-        rayColor = Color.red;
-        Debug.DrawRay(bc.bounds.center, Vector2.down * (bc.bounds.extents.y + dist), rayColor);
-        return false; // return raycastHit.collider != null;
-
         
+        rayColor = Color.red;
+        Debug.DrawRay(CapsulPlayerCol.bounds.center, Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+        return false; // return raycastHit.collider != null;
+    
     }
 
     void MoveCharacter()
@@ -169,7 +145,11 @@ public class BetterMovement : MonoBehaviour
         if (ableJump && grounded())
         {
         rb.velocity = new Vector2(rb.velocity.x, 0);
+        //Debug.Log("ABLE JUMP && GROUNDED ONN");
         }
+
+
+
 
         if (!this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))      //Si no estoy en animacion de atacando se meve nornmal en los dos ejes X e Y
         {
@@ -221,8 +201,6 @@ public class BetterMovement : MonoBehaviour
     
     void BetterJump()
     {
-        
-        
 
         if (Input.GetButtonDown("Jump") && ableJump)
         {
@@ -240,7 +218,7 @@ public class BetterMovement : MonoBehaviour
         if (rb.velocity.y < 0 && !ableJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
-            Debug.Log("ENTROOOO");
+           //Debug.Log("ENTROOOO");
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
