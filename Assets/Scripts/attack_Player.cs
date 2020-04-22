@@ -43,8 +43,10 @@ public class attack_Player : MonoBehaviour
             {
                 enemy.GetComponent<Enemy>().damageReceived(attackDmg);  
                 Debug.Log("Enemy Hit!!");
-            }
 
+                
+            }
+            FindObjectOfType<AudioManager>().Play("PlayerAttack");
             animator.SetTrigger("Attack");  //Animacion del ataque.
             Bullet.canShoot = false;        //Asi controlo que no pueda disparar a la misma vez que ataco.
 
