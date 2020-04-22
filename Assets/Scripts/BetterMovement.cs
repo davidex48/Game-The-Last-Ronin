@@ -47,14 +47,15 @@ public class BetterMovement : MonoBehaviour
     {
         ableJump = false;
 
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position,0.5f);//0.5
         for (int i = 0; i < collider.Length; i++)
         {
 
-            if (collider[i].gameObject.tag == "Ground")
+            /*if (collider[i].gameObject.tag == "Ground")
             {
                 ableJump = true;
-            }
+            }*/
+
             if (collider[i].gameObject.tag == "Enemy")               
             {
                 //Destroy(gameObject);
@@ -72,7 +73,7 @@ public class BetterMovement : MonoBehaviour
         //if (rb.velocity.y > asd) rb.velocity = new Vector2(rb.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
         BetterJump();
 
-        //checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
+        checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
        
         HandleLayers();
         /*if (ableJump)//Para comprobar si de esta manera caigo 
@@ -80,47 +81,69 @@ public class BetterMovement : MonoBehaviour
                //RayCastAll de distancia corta que si me detecta colision con ground no me permita saltar y tambien para que la velocidad en X sea 0 (para caer en los muros)
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
         }*/
-
+        
 
     }
     bool checkWallCol()
     {
-        return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
-       /* bool toRetRight, toRetLeft;
+        //return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
+        bool toRetRight, toRetLeft;
         toRetRight = wallCol(Vector2.right);
         toRetLeft = wallCol(Vector2.left);          //Aqui evaluo les dues funcions tot i que al return si laprimera es true ja retorna true perque es OR ||
 
-        return toRetRight || toRetLeft;*/
+        return toRetRight || toRetLeft;
     }
     bool wallCol(Vector2 v)
     {
+        //Hemos tenido que implementar otro rayCast en la aprte superior porque en algunos momentos de salto el rayCast inferior no colisionaba con el techo ("ground") y me permitia mover
+        //en X y tenia de nuevo el bug de quedarme trabado en el aire al moverme.
+
         Color rayColor;
         float dist = 0.1f;
-        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(CapsulPlayerCol.bounds.center, v, CapsulPlayerCol.bounds.extents.x + dist);
-        for (int i = 0; i < raycastHit.Length; i++)
+        RaycastHit2D[] raycastHitDown = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y - CapsulPlayerCol.size.y - 0.01f, CapsulPlayerCol.bounds.center.z), v, CapsulPlayerCol.bounds.extents.x + dist);
+        for (int i = 0; i < raycastHitDown.Length; i++)
+            
         {
 
-            if (raycastHit[i].collider.gameObject.tag == "Ground")
+            if (raycastHitDown[i].collider.gameObject.tag == "Ground")
             {            
                 rayColor = Color.magenta;
-                Debug.DrawRay(CapsulPlayerCol.bounds.center, v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
+                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y - CapsulPlayerCol.size.y - 0.01f, CapsulPlayerCol.bounds.center.z), v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
                 return true;
             }
         }
-      
+
+
+
+        RaycastHit2D[] raycastHitUp = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y + CapsulPlayerCol.size.y , CapsulPlayerCol.bounds.center.z), v, CapsulPlayerCol.bounds.extents.x + dist);
+        for (int i = 0; i < raycastHitUp.Length; i++)
+
+        {
+
+            if (raycastHitUp[i].collider.gameObject.tag == "Ground")
+            {
+                rayColor = Color.magenta;
+                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y + CapsulPlayerCol.size.y + 0.01f, CapsulPlayerCol.bounds.center.z), v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
+                return true;
+            }
+        }
+
         rayColor = Color.cyan;
-        Debug.DrawRay(CapsulPlayerCol.bounds.center, v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor); //No hace falta que sea negativo imagino porque direccion la coje de los vectors
+        //RayDown
+        Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y - CapsulPlayerCol.size.y - 0.01f, CapsulPlayerCol.bounds.center.z), v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor); //No hace falta que sea negativo imagino porque direccion la coje de los vectors
+        //RayDown
+        Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y + CapsulPlayerCol.size.y + 0.01f, CapsulPlayerCol.bounds.center.z), v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
         return false;
 
 
     }
 
 
-    bool grounded()
+    bool grounded() //Doblar rayCast de salto porque en extremos de un saliente no me deja saltar porque no detecta
     {
         Color rayColor;
-        float dist = 0.1f;  //0.2
-        RaycastHit2D[] raycastHit = Physics2D.RaycastAll(CapsulPlayerCol.bounds.center, Vector2.down, CapsulPlayerCol.bounds.extents.y + dist);
+        float dist = 0.15f;  //0.2
+        /*RaycastHit2D[] raycastHit = Physics2D.RaycastAll(CapsulPlayerCol.bounds.center, Vector2.down, CapsulPlayerCol.bounds.extents.y + dist);
         for (int i = 0; i < raycastHit.Length; i++)
         {
             
@@ -135,14 +158,54 @@ public class BetterMovement : MonoBehaviour
         
         rayColor = Color.red;
         Debug.DrawRay(CapsulPlayerCol.bounds.center, Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+        return false; // return raycastHit.collider != null;*/
+
+        RaycastHit2D[] raycastHitLeft = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down, CapsulPlayerCol.bounds.extents.y + dist);
+        for (int i = 0; i < raycastHitLeft.Length; i++)
+        {
+
+            if (raycastHitLeft[i].collider.gameObject.tag == "Ground")
+            {
+
+                rayColor = Color.green;
+                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y , CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+                return true;
+            }
+        }
+
+
+
+        RaycastHit2D[] raycastHitRight = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x + CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down, CapsulPlayerCol.bounds.extents.y + dist);
+        for (int i = 0; i < raycastHitRight.Length; i++)
+        {
+
+            if (raycastHitRight[i].collider.gameObject.tag == "Ground")
+            {
+
+                rayColor = Color.green;
+                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x + CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+                return true;
+            }
+        }
+
+        rayColor = Color.red;
+        
+        Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x + CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+        Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
         return false; // return raycastHit.collider != null;
-    
+
+        
+        
+        
     }
+
+
+
 
     void MoveCharacter()
     {
         //si vel > que maxVel 
-        if (ableJump && grounded())
+        if (ableJump && grounded())     //Dejarla sola esta condicion grounded?      
         {
         rb.velocity = new Vector2(rb.velocity.x, 0);
         //Debug.Log("ABLE JUMP && GROUNDED ONN");
@@ -156,19 +219,19 @@ public class BetterMovement : MonoBehaviour
             horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
             Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
             Vector2 m_velocity = Vector2.zero;
-            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f); //Time.deltaTime    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime); //0.05    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
             //rb.velocity = targetVelocity;
             velxKunai = horizontalMove; //Variables que uso para darle la velocidad del player al kunai.
             velyKunai = rb.velocity.y;
             //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
            
         }
-        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))       //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))  //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
             Vector2 targetVelocity = new Vector2(0, rb.velocity.y); //Puedo dividir entre dos rb.velocity.y para que se reduzca un poco el descenso
             Vector2 m_velocity = Vector2.zero;
-            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, 0.05f); 
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime); 
             //rb.velocity = targetVelocity;
             velxKunai = 0;
             velyKunai = 0;
@@ -201,8 +264,12 @@ public class BetterMovement : MonoBehaviour
     
     void BetterJump()
     {
+        if (grounded())
+        {
+            ableJump = true;
+        }
 
-        if (Input.GetButtonDown("Jump") && ableJump)
+        if (Input.GetButtonDown("Jump") && ableJump )       //grounded()
         {
             rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);
             animator.SetBool("IsJumping", true);
@@ -228,6 +295,24 @@ public class BetterMovement : MonoBehaviour
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
 
         }
+
+        if (wallCol(Vector2.left) && !ableJump)     //Cuando colisiono con muro izquierdo y no puedo saltar, si mi v < 0 (me muevo hacia el muro con el que colisiono) 
+        {
+            if (rb.velocity.x <= 0) 
+                rb.velocity = new Vector2 (0, rb.velocity.y);
+        }
+         if (wallCol(Vector2.right) && !ableJump)
+        {
+            if (rb.velocity.x >= 0)
+                rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
+
+
+            /*if (checkWallCol() && !ableJump)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }*/
     }
    public void OnLanding()
     {

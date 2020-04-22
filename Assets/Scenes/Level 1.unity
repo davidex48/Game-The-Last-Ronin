@@ -555,7 +555,6 @@ GameObject:
   m_Component:
   - component: {fileID: 571521065}
   - component: {fileID: 571521064}
-  - component: {fileID: 571521063}
   - component: {fileID: 571521062}
   - component: {fileID: 571521061}
   - component: {fileID: 571521066}
@@ -563,6 +562,7 @@ GameObject:
   - component: {fileID: 571521068}
   - component: {fileID: 571521069}
   - component: {fileID: 571521070}
+  - component: {fileID: 571521063}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -582,9 +582,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b20ffca2db51443ae65d3ac21f163f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
   animator: {fileID: 571521066}
   velocity: 10
   verticalForce: 6.6
+  ableJump: 0
   fallMultiplier: 2
   lowJumpMultiplier: 3.5
 --- !u!50 &571521062
@@ -608,8 +610,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &571521063
-BoxCollider2D:
+--- !u!70 &571521063
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -621,19 +623,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0071669817, y: -0.011425853}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.62, y: 0.39}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.38539624, y: 0.44382858}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.07434085, y: 0.001260072}
+  m_Size: {x: 0.4713183, y: 0.4713183}
+  m_Direction: 0
 --- !u!212 &571521064
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1298,6 +1290,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: agroRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: desaggroRange
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aadd6409b9fbb24478754182568929ad, type: 3}
@@ -8894,6 +8896,16 @@ PrefabInstance:
         type: 3}
       propertyPath: desaggroRange
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: agroRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: desaggroRange
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aadd6409b9fbb24478754182568929ad, type: 3}

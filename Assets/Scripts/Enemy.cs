@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     //[SerializeField] public int lifeAmount;
     [SerializeField] float speed = 0.05f;
     //[SerializeField] float pushMagnitude = 10.0f;
-    [SerializeField] public Transform player;
+    private Transform player;
     [SerializeField] Image lifeBar;
     Rigidbody2D rb;
 
@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyChasing = false;
         rb = GetComponent<Rigidbody2D>();
     }
