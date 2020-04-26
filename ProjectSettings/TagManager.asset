@@ -10,6 +10,8 @@ TagManager:
   - Kunai
   - Tierra
   - Wall
+  - Pendul
+  - HellHound_Enemy
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - 
   - Enemy
   - Background
-  - 
+  - HellHound_Enemy
   - 
   - 
   - 

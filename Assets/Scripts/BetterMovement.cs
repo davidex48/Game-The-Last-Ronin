@@ -26,6 +26,7 @@ public class BetterMovement : MonoBehaviour
     float fallMultiplier = 3.0f;
     [SerializeField]
     float lowJumpMultiplier = 3.5f;
+    private Transform respawn;
 
     public static float velxKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
     public static float velyKunai;//
@@ -33,6 +34,7 @@ public class BetterMovement : MonoBehaviour
     void Start()
     {
         life = 100;
+        respawn = GameObject.FindGameObjectWithTag("Respawn").transform;
     }
 
     //static Vector2 kunaiVel = new Vector2(velxKunai, velyKunai);
@@ -40,14 +42,15 @@ public class BetterMovement : MonoBehaviour
     {
         ableJump = false;
         rb = GetComponent<Rigidbody2D>();
-        CapsulPlayerCol = GetComponent<CapsuleCollider2D>();     
+        CapsulPlayerCol = GetComponent<CapsuleCollider2D>();
+        
     }
 
     private void Update()
     {
         ableJump = false;
 
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position,0.5f);//0.5
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position,0.67f);//Si la bajamos mas no colisiona bien con enemigos
         for (int i = 0; i < collider.Length; i++)
         {
 
@@ -56,18 +59,13 @@ public class BetterMovement : MonoBehaviour
                 ableJump = true;
             }*/
 
-            if (collider[i].gameObject.tag == "Enemy")               
+            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul")               
             {
                 //Destroy(gameObject);
-                
-                this.transform.position = SpawnPoint.transform.position;
+                rb.transform.position = respawn.position;
+                //this.transform.position = SpawnPoint.transform.position;
             }
-            if (collider[i].gameObject.tag == "Pendul")               
-            {
-                this.transform.position = SpawnPoint.transform.position;
-                //Destroy(gameObject);
-            }
-        }
+   
 
         MoveCharacter();
         //if (rb.velocity.y > asd) rb.velocity = new Vector2(rb.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)

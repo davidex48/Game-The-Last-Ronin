@@ -15,15 +15,16 @@ public class Projectile : MonoBehaviour
 
     private bool isDestroyed;
     public GameObject enemy;
+    public GameObject HellHound;
     public GameObject player;
     private Transform playerTrans;
     private Rigidbody2D kunaiRB;
     public float bulletSpeed = 1.5f;
     public float bulletLife;
-    public static int damage;
+    public int damage;  //Antes era static
     public int damageRef = 25;
 
-    // Start is called before the first frame update
+
 
 
 
@@ -35,7 +36,9 @@ public class Projectile : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerTrans = player.transform;
         //velocity = BetterMovement.;
-        enemy = GameObject.FindGameObjectWithTag("Enemy");  //NUEVOOOO
+        enemy = GameObject.FindGameObjectWithTag("Enemy");  
+        HellHound = GameObject.FindGameObjectWithTag("HellHound_Enemy");
+        HellHound = GameObject.FindGameObjectWithTag("HellHound_Enemy");
 
     }
 
@@ -67,10 +70,19 @@ public class Projectile : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if(.)
+        if(collision.tag == "HellHound_Enemy")
+        {
+            collision.gameObject.GetComponent<HellHound>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
+            Destroy(gameObject);
+        }
+
         if (collision.tag == "Enemy")
         {
+
             collision.gameObject.GetComponent<Enemy>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
+            
         }
         if (collision.tag == "Ground")
         {

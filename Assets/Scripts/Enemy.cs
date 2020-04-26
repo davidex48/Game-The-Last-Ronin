@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     public float desaggroRange;
     public float agroRange;
     //public int stoppingDistance;
-    [SerializeField] private float damageValue1;
+    //[SerializeField] private float damageValue1;
     //[SerializeField] private float actualLife;
     //[SerializeField] public int lifeAmount;
     [SerializeField] float speed = 0.05f;
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyChasing = false;
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame

@@ -19,7 +19,7 @@ public class Dash : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        dashTime = startDashTime;
+        dashTime = startDashTime;           //Tiempo que dura el dash, que cuando entro en dash lo igualo para que siempre sea el mismo tiempo
         resetCooldown = cooldown; 
         canDash = true; //Inici dash ON
     }

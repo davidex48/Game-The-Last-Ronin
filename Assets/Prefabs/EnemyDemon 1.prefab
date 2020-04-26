@@ -175,9 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 100
-  desaggroRange: 0
-  agroRange: 0
-  damageValue1: 0
+  desaggroRange: 12
+  agroRange: 10
   speed: 0.05
-  player: {fileID: 0}
   lifeBar: {fileID: 0}
