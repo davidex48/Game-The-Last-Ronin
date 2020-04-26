@@ -70,7 +70,6 @@ public class Projectile : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(.)
         if(collision.tag == "HellHound_Enemy")
         {
             collision.gameObject.GetComponent<HellHound>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT

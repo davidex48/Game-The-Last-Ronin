@@ -9,12 +9,13 @@ public class BetterMovement : MonoBehaviour
     public GameObject SpawnPoint;   //Hazerlo dinamico así GameObject.FindGameObjectWithTag("Player")
                                     //GameObject.FindGameObjectWithTag("SpawnPoint")[0]
 
-//Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
-//Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
+    //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
+    //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
 
+    private Transform respawn;
     public Animator animator;
     public static int life;
-    public float velocity;   
+    public float velocity;
     Rigidbody2D rb;
     CapsuleCollider2D CapsulPlayerCol;               //Cambiar noms
     float horizontalMove = 10.0f;
@@ -26,7 +27,6 @@ public class BetterMovement : MonoBehaviour
     float fallMultiplier = 3.0f;
     [SerializeField]
     float lowJumpMultiplier = 3.5f;
-    private Transform respawn;
 
     public static float velxKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
     public static float velyKunai;//
@@ -43,43 +43,37 @@ public class BetterMovement : MonoBehaviour
         ableJump = false;
         rb = GetComponent<Rigidbody2D>();
         CapsulPlayerCol = GetComponent<CapsuleCollider2D>();
-        
     }
 
     private void Update()
     {
         ableJump = false;
 
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position,0.67f);//Si la bajamos mas no colisiona bien con enemigos
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.65f);//0.5
         for (int i = 0; i < collider.Length; i++)
         {
 
-            /*if (collider[i].gameObject.tag == "Ground")
-            {
-                ableJump = true;
-            }*/
-
-            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul")               
+             if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul")
             {
                 //Destroy(gameObject);
                 rb.transform.position = respawn.position;
                 //this.transform.position = SpawnPoint.transform.position;
             }
-   
+        }
 
         MoveCharacter();
         //if (rb.velocity.y > asd) rb.velocity = new Vector2(rb.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
         BetterJump();
 
         checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
-       
+
         HandleLayers();
         /*if (ableJump)//Para comprobar si de esta manera caigo 
         {      //Arreglar con RayCast
                //RayCastAll de distancia corta que si me detecta colision con ground no me permita saltar y tambien para que la velocidad en X sea 0 (para caer en los muros)
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
         }*/
-        
+
 
     }
     bool checkWallCol()
@@ -100,11 +94,11 @@ public class BetterMovement : MonoBehaviour
         float dist = 0.1f;
         RaycastHit2D[] raycastHitDown = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y - CapsulPlayerCol.size.y - 0.01f, CapsulPlayerCol.bounds.center.z), v, CapsulPlayerCol.bounds.extents.x + dist);
         for (int i = 0; i < raycastHitDown.Length; i++)
-            
+
         {
 
             if (raycastHitDown[i].collider.gameObject.tag == "Ground")
-            {            
+            {
                 rayColor = Color.magenta;
                 Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y - CapsulPlayerCol.size.y - 0.01f, CapsulPlayerCol.bounds.center.z), v * (CapsulPlayerCol.bounds.extents.x + dist), rayColor);
                 return true;
@@ -113,7 +107,7 @@ public class BetterMovement : MonoBehaviour
 
 
 
-        RaycastHit2D[] raycastHitUp = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y + CapsulPlayerCol.size.y , CapsulPlayerCol.bounds.center.z), v, CapsulPlayerCol.bounds.extents.x + dist);
+        RaycastHit2D[] raycastHitUp = Physics2D.RaycastAll(new Vector3(CapsulPlayerCol.bounds.center.x, CapsulPlayerCol.bounds.center.y + CapsulPlayerCol.size.y, CapsulPlayerCol.bounds.center.z), v, CapsulPlayerCol.bounds.extents.x + dist);
         for (int i = 0; i < raycastHitUp.Length; i++)
 
         {
@@ -166,7 +160,7 @@ public class BetterMovement : MonoBehaviour
             {
 
                 rayColor = Color.green;
-                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y , CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
+                Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
                 return true;
             }
         }
@@ -187,14 +181,14 @@ public class BetterMovement : MonoBehaviour
         }
 
         rayColor = Color.red;
-        
+
         Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x + CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
         Debug.DrawRay(new Vector3(CapsulPlayerCol.bounds.center.x - CapsulPlayerCol.size.x, CapsulPlayerCol.bounds.center.y, CapsulPlayerCol.bounds.center.z), Vector2.down * (CapsulPlayerCol.bounds.extents.y + dist), rayColor);
         return false; // return raycastHit.collider != null;
 
-        
-        
-        
+
+
+
     }
 
 
@@ -205,8 +199,8 @@ public class BetterMovement : MonoBehaviour
         //si vel > que maxVel 
         if (ableJump && grounded())     //Dejarla sola esta condicion grounded?      
         {
-        rb.velocity = new Vector2(rb.velocity.x, 0);
-        //Debug.Log("ABLE JUMP && GROUNDED ONN");
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            //Debug.Log("ABLE JUMP && GROUNDED ONN");
         }
 
 
@@ -222,21 +216,21 @@ public class BetterMovement : MonoBehaviour
             velxKunai = horizontalMove; //Variables que uso para darle la velocidad del player al kunai.
             velyKunai = rb.velocity.y;
             //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
-           
+
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))  //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
             Vector2 targetVelocity = new Vector2(0, rb.velocity.y); //Puedo dividir entre dos rb.velocity.y para que se reduzca un poco el descenso
             Vector2 m_velocity = Vector2.zero;
-            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime); 
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime);
             //rb.velocity = targetVelocity;
             velxKunai = 0;
             velyKunai = 0;
             //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
         }
-     
-            animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
@@ -259,7 +253,7 @@ public class BetterMovement : MonoBehaviour
         }
     }
 
-    
+
     void BetterJump()
     {
         if (grounded())
@@ -267,7 +261,7 @@ public class BetterMovement : MonoBehaviour
             ableJump = true;
         }
 
-        if (Input.GetButtonDown("Jump") && ableJump )       //grounded()
+        if (Input.GetButtonDown("Jump") && ableJump)       //grounded()
         {
             rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);
             animator.SetBool("IsJumping", true);
@@ -283,12 +277,12 @@ public class BetterMovement : MonoBehaviour
         if (rb.velocity.y < 0 && !ableJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
-           //Debug.Log("ENTROOOO");
+            //Debug.Log("ENTROOOO");
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime); 
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime);
 
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
 
@@ -296,10 +290,10 @@ public class BetterMovement : MonoBehaviour
 
         if (wallCol(Vector2.left) && !ableJump)     //Cuando colisiono con muro izquierdo y no puedo saltar, si mi v < 0 (me muevo hacia el muro con el que colisiono) 
         {
-            if (rb.velocity.x <= 0) 
-                rb.velocity = new Vector2 (0, rb.velocity.y);
+            if (rb.velocity.x <= 0)
+                rb.velocity = new Vector2(0, rb.velocity.y);
         }
-         if (wallCol(Vector2.right) && !ableJump)
+        if (wallCol(Vector2.right) && !ableJump)
         {
             if (rb.velocity.x >= 0)
                 rb.velocity = new Vector2(0, rb.velocity.y);
@@ -307,12 +301,12 @@ public class BetterMovement : MonoBehaviour
 
 
 
-            /*if (checkWallCol() && !ableJump)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }*/
+        /*if (checkWallCol() && !ableJump)
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
+    }*/
     }
-   public void OnLanding()
+    public void OnLanding()
     {
         animator.SetBool("IsJumping", false);
     }
@@ -325,11 +319,8 @@ public class BetterMovement : MonoBehaviour
         }
         animator.SetLayerWeight(1, 0);
     }
-    /*void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Enemy")
-        {
-            Destroy(gameObject);
-        }
-    }*/
-} 
+}
+
+
+
+

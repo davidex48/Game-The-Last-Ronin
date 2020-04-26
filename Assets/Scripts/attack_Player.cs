@@ -20,6 +20,7 @@ public class attack_Player : MonoBehaviour
 
     private void Start()
     {
+        
         //demon = GameObject.FindGameObjectWithTag("Enemy");
         //wolf = GameObject.FindGameObjectWithTag("HellHound_Enemy");
     }
