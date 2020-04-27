@@ -199,6 +199,7 @@ public class BetterMovement : MonoBehaviour
         //si vel > que maxVel 
         if (ableJump && grounded())     //Dejarla sola esta condicion grounded?      
         {
+            
             rb.velocity = new Vector2(rb.velocity.x, 0);
             //Debug.Log("ABLE JUMP && GROUNDED ONN");
         }
@@ -256,16 +257,32 @@ public class BetterMovement : MonoBehaviour
 
     void BetterJump()
     {
+
         if (grounded())
         {
-            ableJump = true;
+            animator.SetBool("IsJumping", false);
+            ableJump = true;            
         }
+        else if (!grounded())
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            {
+                animator.SetBool("IsJumping", true);
+            }
+            else animator.SetBool("IsJumping", false);
+
+            ableJump = false;
+        }
+
 
         if (Input.GetButtonDown("Jump") && ableJump)       //grounded()
         {
-            rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);
-            animator.SetBool("IsJumping", true);
-            ableJump = false;
+            //animator.SetTrigger("takeOf");
+            
+            
+
+            rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);       
+            
             //rb.velocity = Vector2.up * verticalForce;
         }
         //else
@@ -276,12 +293,16 @@ public class BetterMovement : MonoBehaviour
 
         if (rb.velocity.y < 0 && !ableJump)
         {
+            
+            
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
             //Debug.Log("ENTROOOO");
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
         {
+            
+            
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime);
 
             //rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
@@ -299,18 +320,7 @@ public class BetterMovement : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-
-
-        /*if (checkWallCol() && !ableJump)
-    {
-        rb.velocity = new Vector2(0, rb.velocity.y);
-    }*/
     }
-    public void OnLanding()
-    {
-        animator.SetBool("IsJumping", false);
-    }
-
     private void HandleLayers()
     {
         if (!isGrounded)
@@ -320,6 +330,8 @@ public class BetterMovement : MonoBehaviour
         animator.SetLayerWeight(1, 0);
     }
 }
+
+
 
 
 

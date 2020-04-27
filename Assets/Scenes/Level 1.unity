@@ -724,6 +724,7 @@ MonoBehaviour:
   dashSpeed: 30
   startDashTime: 0.1
   cooldown: 0.2
+  animator: {fileID: 0}
 --- !u!114 &571521068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8964,7 +8965,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerRespawn
   m_TagString: Respawn
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

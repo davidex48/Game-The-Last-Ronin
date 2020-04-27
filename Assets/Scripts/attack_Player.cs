@@ -11,7 +11,8 @@ public class attack_Player : MonoBehaviour
     public float attackRange;
     public LayerMask enemyLayers;
     public LayerMask HellHoundLayers;
-
+    float resetColdownAfterAttack;
+    float coldownAfterAttack;
     public static int attackDmg = 100;
     //public GameObject wolf;
     //public GameObject demon;
@@ -20,9 +21,8 @@ public class attack_Player : MonoBehaviour
 
     private void Start()
     {
-        
-        //demon = GameObject.FindGameObjectWithTag("Enemy");
-        //wolf = GameObject.FindGameObjectWithTag("HellHound_Enemy");
+        resetColdownAfterAttack = coldownAfterAttack = 0.8f;
+
     }
 
     // Update is called once per frame
@@ -39,16 +39,23 @@ public class attack_Player : MonoBehaviour
 
     void InputAttack()
     {
-        if (Input.GetButtonDown("Fire2"))
-        {
+        resetColdownAfterAttack -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Fire2") && resetColdownAfterAttack <= 0)
+        {           
             onAttack = true;
-        }
+            resetColdownAfterAttack = coldownAfterAttack;
+        }        
     }
 
     void Attack()
     {
+        
+
         if (onAttack)
         {
+            animator.SetBool("IsJumping", false);
+
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);   //Me detecta colisiones a partir de circulo con (centro, radio
             foreach (Collider2D enemy in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
             {                                   
@@ -93,7 +100,7 @@ public class attack_Player : MonoBehaviour
 
 
             FindObjectOfType<AudioManager>().Play("PlayerAttack"); //Sonido del ataque
-
+            
             animator.SetTrigger("Attack");  //Animacion del ataque.
             Bullet.canShoot = false;        //Asi controlo que no pueda disparar a la misma vez que ataco.
 
