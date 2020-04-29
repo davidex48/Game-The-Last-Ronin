@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Parallaxing : MonoBehaviour
 {
-    public Transform[] backgrounds;
+  /*  public Transform[] backgrounds;
     private float[] parallaxScales;
     public float smoothing = 1f; 
     private Transform cam; 
@@ -44,5 +44,5 @@ public class Parallaxing : MonoBehaviour
         }
        
         previousCamPos = cam.position;
-    }
+    }*/
 }
