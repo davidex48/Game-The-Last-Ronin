@@ -57,8 +57,8 @@ public class HellHound : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        speed = 0.135f;
-        JumpAttackSpeed = 0.23f;
+        speed = 0.115f;             //0.135
+        JumpAttackSpeed = 0.2f;   // 0.23
 
         StartAttackTime = AttackTime;
         resetCooldown = Cooldown = 1.2f;
@@ -108,8 +108,9 @@ public class HellHound : MonoBehaviour
         {
             anim.SetBool("isRunning", true);
             Vector3 dirVec = player.transform.position - transform.position;
+            dirVec.y = 0.0f;
             transform.position += dirVec.normalized * speed;
-            AttackTime = StartAttackTime;  //Asi evito arrastrar elt tiempo del if de la linea 122 si salgo de su alcanze de salto   
+            AttackTime = StartAttackTime;  //Asi evito arrastrar el tiempo del if de la linea 122 si salgo de su alcanze de salto   
 
             Cooldown -= Time.deltaTime;
             if (Cooldown <= 0)
@@ -133,15 +134,15 @@ public class HellHound : MonoBehaviour
 
                 if (AttackTime > StartAttackTime/2)
                 {
-                    //dirVec.y += 10.0f;    //No Funciona
-                    //transform.position += Vector3.up.y;
-                 transform.position += (dirVec.normalized + Vector3.up * 0.5f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
-                                                                                                   //El vector.Up * X me modifica el valor en y, mientras mas grande mas salta
+                  
+                    
+                 transform.position += (dirVec.normalized + Vector3.up * 0.4f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
+                                                                                                   //El vector.Up * X(0.5) me modifica el valor en y, mientras mas grande mas salta
                 }
                 else
                 {
-                    //dirVec.y -= 10.0f;    //No Funciona
-                    transform.position += (dirVec.normalized - Vector3.up * 0.5f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
+                   
+                    transform.position += (dirVec.normalized - Vector3.up * 0.4f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
                                                                                                       //El vector.Up * X me modifica el valor en y, mientras mas grande mas salta
 
                     //Jump attack Speed solo deveria afectar al eje X porque al salto tambien me lo multiplica

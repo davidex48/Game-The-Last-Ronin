@@ -12,28 +12,46 @@ public class BetterMovement : MonoBehaviour
     //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
     //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
 
+    private const int STAMINE_REGEN = 25;   //25
+    private float maxStamine;
+    public float stamine;
+    public Image stamineBar;
     private Transform respawn;
     public Animator animator;
     public static int life;
     public float velocity;
-    Rigidbody2D rb;
+    Rigidbody2D musashi;
     CapsuleCollider2D CapsulPlayerCol;               //Cambiar noms
-    float horizontalMove = 10.0f;
+    float horizontalMove;
     [SerializeField]
-    float verticalForce = 6.6f;
+    float verticalForce;
     bool isGrounded;
     public bool ableJump;
     [SerializeField]
-    float fallMultiplier = 3.0f;
+    float fallMultiplier;
     [SerializeField]
-    float lowJumpMultiplier = 3.5f;
+    float lowJumpMultiplier;
 
     public static float velxKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai 
     public static float velyKunai;//
 
+
+    public void staminaReductor(int staminaValue)
+    {
+        stamine -= staminaValue;
+        Debug.Log("Funcion Stamine ONN!!!!");
+        
+    }
     void Start()
     {
+        horizontalMove = 10.0f;
+        velocity = 10.0f; 
+        verticalForce = 6.6f;
+        fallMultiplier = 2.0f;
+        lowJumpMultiplier = 3.5f;
         life = 100;
+        stamineBar = GameObject.Find("StamineBarFill").GetComponent<Image>();
+        stamine = maxStamine = 75;
         respawn = GameObject.FindGameObjectWithTag("Respawn").transform;
     }
 
@@ -41,12 +59,23 @@ public class BetterMovement : MonoBehaviour
     private void Awake()
     {
         ableJump = false;
-        rb = GetComponent<Rigidbody2D>();
+        musashi = GetComponent<Rigidbody2D>();
         CapsulPlayerCol = GetComponent<CapsuleCollider2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (stamine < 100)
+        {
+            stamine += STAMINE_REGEN * Time.deltaTime;
+        }
+        stamineBar.fillAmount = stamine / maxStamine;
     }
 
     private void Update()
     {
+
+         
         ableJump = false;
 
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.65f);//0.5
@@ -56,13 +85,13 @@ public class BetterMovement : MonoBehaviour
              if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul")
             {
                 //Destroy(gameObject);
-                rb.transform.position = respawn.position;
+                musashi.transform.position = respawn.position;
                 //this.transform.position = SpawnPoint.transform.position;
             }
         }
 
         MoveCharacter();
-        //if (rb.velocity.y > asd) rb.velocity = new Vector2(rb.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
+        //if (musashi.velocity.y > asd) musashi.velocity = new Vector2(musashi.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
         BetterJump();
 
         checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
@@ -71,10 +100,11 @@ public class BetterMovement : MonoBehaviour
         /*if (ableJump)//Para comprobar si de esta manera caigo 
         {      //Arreglar con RayCast
                //RayCastAll de distancia corta que si me detecta colision con ground no me permita saltar y tambien para que la velocidad en X sea 0 (para caer en los muros)
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
+            musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
         }*/
 
-
+    
+    
     }
     bool checkWallCol()
     {
@@ -200,7 +230,7 @@ public class BetterMovement : MonoBehaviour
         if (ableJump && grounded())     //Dejarla sola esta condicion grounded?      
         {
             
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            musashi.velocity = new Vector2(musashi.velocity.x, 0);
             //Debug.Log("ABLE JUMP && GROUNDED ONN");
         }
 
@@ -210,25 +240,25 @@ public class BetterMovement : MonoBehaviour
         if (!this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))      //Si no estoy en animacion de atacando se meve nornmal en los dos ejes X e Y
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
-            Vector2 targetVelocity = new Vector2(horizontalMove, rb.velocity.y);
+            Vector2 targetVelocity = new Vector2(horizontalMove, musashi.velocity.y);
             Vector2 m_velocity = Vector2.zero;
-            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime); //0.05    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
-            //rb.velocity = targetVelocity;
+            musashi.velocity = Vector2.SmoothDamp(musashi.velocity, targetVelocity, ref m_velocity, Time.deltaTime); //0.05    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
+            //musashi.velocity = targetVelocity;
             velxKunai = horizontalMove; //Variables que uso para darle la velocidad del player al kunai.
-            velyKunai = rb.velocity.y;
-            //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
+            velyKunai = musashi.velocity.y;
+            //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
 
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))  //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
-            Vector2 targetVelocity = new Vector2(0, rb.velocity.y); //Puedo dividir entre dos rb.velocity.y para que se reduzca un poco el descenso
+            Vector2 targetVelocity = new Vector2(0, musashi.velocity.y); //Puedo dividir entre dos musashi.velocity.y para que se reduzca un poco el descenso
             Vector2 m_velocity = Vector2.zero;
-            rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref m_velocity, Time.deltaTime);
-            //rb.velocity = targetVelocity;
+            musashi.velocity = Vector2.SmoothDamp(musashi.velocity, targetVelocity, ref m_velocity, Time.deltaTime);
+            //musashi.velocity = targetVelocity;
             velxKunai = 0;
             velyKunai = 0;
-            //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
+            //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
         }
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
@@ -281,9 +311,9 @@ public class BetterMovement : MonoBehaviour
             
             
 
-            rb.velocity = new Vector2(rb.velocity.x, 1 * verticalForce);       
+            musashi.velocity = new Vector2(musashi.velocity.x, 1 * verticalForce);       
             
-            //rb.velocity = Vector2.up * verticalForce;
+            //musashi.velocity = Vector2.up * verticalForce;
         }
         //else
 
@@ -291,33 +321,33 @@ public class BetterMovement : MonoBehaviour
         //El raicast devuelve flag que actua como el ableJump = false. Rayo vertical muy pequeño que detecta colision con ground
 
 
-        if (rb.velocity.y < 0 && !ableJump)
+        if (musashi.velocity.y < 0 && !ableJump)
         {
             
             
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
+            musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
             //Debug.Log("ENTROOOO");
-            //rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+            //musashi.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
+        else if (musashi.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
         {
             
             
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime);
+            musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime);
 
-            //rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+            //musashi.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
 
         }
 
         if (wallCol(Vector2.left) && !ableJump)     //Cuando colisiono con muro izquierdo y no puedo saltar, si mi v < 0 (me muevo hacia el muro con el que colisiono) 
         {
-            if (rb.velocity.x <= 0)
-                rb.velocity = new Vector2(0, rb.velocity.y);
+            if (musashi.velocity.x <= 0)
+                musashi.velocity = new Vector2(0, musashi.velocity.y);
         }
         if (wallCol(Vector2.right) && !ableJump)
         {
-            if (rb.velocity.x >= 0)
-                rb.velocity = new Vector2(0, rb.velocity.y);
+            if (musashi.velocity.x >= 0)
+                musashi.velocity = new Vector2(0, musashi.velocity.y);
         }
 
     }

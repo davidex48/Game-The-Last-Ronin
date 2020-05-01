@@ -104,10 +104,12 @@ public class Dash : MonoBehaviour
     private float resetCooldown;
     private bool canDash;
     public Animator animator;
+    [SerializeField]private int stamineCost;
 
     // Start is called before the first frame update
     void Start()
     {
+        stamineCost = 25;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;           //Tiempo que dura el dash, que cuando entro en dash lo igualo para que siempre sea el mismo tiempo
@@ -115,19 +117,27 @@ public class Dash : MonoBehaviour
         canDash = true; //Inici dash ON
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
-        if (direction == 0 && canDash)  //direction y canDash OK
+        float currentStamine = rb.GetComponent<BetterMovement>().stamine; //Leo variable stamina de BetterMovment
+        
+
+
+        if (direction == 0 && canDash && currentStamine >= stamineCost)  
         {
+            
+
             if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift)) //GetKey: Mentre detecta que esta pressa. GetKeyDown: Es com un flanc, el primer impuls de premer tecla. GetKeyUp?
             {
+                rb.GetComponent<BetterMovement>().staminaReductor(stamineCost); //Llamo a funcion que reduce stamina
                 animator.SetBool("Dashing", true);
                 animator.SetTrigger("Dash");
                 direction = 1;
             }
             else if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
             {
+                rb.GetComponent<BetterMovement>().staminaReductor(stamineCost); //Llamo a funcion que reduce stamina
                 animator.SetBool("Dashing", true);
                 animator.SetTrigger("Dash");
                 direction = 2;
