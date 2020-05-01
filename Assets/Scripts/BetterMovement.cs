@@ -232,9 +232,10 @@ public class BetterMovement : MonoBehaviour
             
             musashi.velocity = new Vector2(musashi.velocity.x, 0);
             //Debug.Log("ABLE JUMP && GROUNDED ONN");
+            FindObjectOfType<AudioManager>().Play("MusashiRunning");
         }
 
-
+      
 
 
         if (!this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))      //Si no estoy en animacion de atacando se meve nornmal en los dos ejes X e Y
@@ -248,6 +249,7 @@ public class BetterMovement : MonoBehaviour
             velyKunai = musashi.velocity.y;
             //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
 
+            FindObjectOfType<AudioManager>().Play("MusashiRunning");
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))  //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
         {
@@ -259,10 +261,12 @@ public class BetterMovement : MonoBehaviour
             velxKunai = 0;
             velyKunai = 0;
             //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
+            //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
+            FindObjectOfType<AudioManager>().Play("MusashiRunning");
         }
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
+       
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             //Codigo espejo: Me orienta al personaje hacia donde estoy mirando. Cuando no estoy atacando funciona
@@ -277,11 +281,13 @@ public class BetterMovement : MonoBehaviour
                 characterScale.x = -2;
             }
             transform.localScale = characterScale;
+            
         }
         else//Cuando estoy atacando no se ejecuta codigo espejo i asi si intento moverme en direccion contraria no se me orienta al reves el PJ
         {
             return;
         }
+        
     }
 
 
