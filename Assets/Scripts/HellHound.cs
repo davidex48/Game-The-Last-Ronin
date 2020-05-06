@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.UIElements;
+//using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 public class HellHound : MonoBehaviour
@@ -31,9 +31,9 @@ public class HellHound : MonoBehaviour
     [SerializeField] private float damageValue1;
     //[SerializeField] private float actualLife;
     //[SerializeField] public int lifeAmount;
-    [SerializeField]private float speed = 0.135f;
+    [SerializeField]private float speed = 0.115f;
     
-    [SerializeField] private float JumpAttackSpeed = 0.23f;
+    [SerializeField] private float JumpAttackSpeed = 0.20f;
     //[SerializeField] float pushMagnitude = 10.0f;
     private Transform player;
     [SerializeField] Image lifeBar;
