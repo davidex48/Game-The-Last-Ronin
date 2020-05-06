@@ -11,6 +11,7 @@ public class attack_Player : MonoBehaviour
     public float attackRange;
     public LayerMask enemyLayers;
     public LayerMask HellHoundLayers;
+    public LayerMask RangedTenguLayer;
     float resetColdownAfterAttack;
     float coldownAfterAttack;
     public static int attackDmg = 100;
@@ -66,6 +67,11 @@ public class attack_Player : MonoBehaviour
             foreach (Collider2D HellHound_enemy in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
             {
                 HellHound_enemy.GetComponent<HellHound>().damageReceived(attackDmg);
+            }
+            hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, RangedTenguLayer);
+            foreach (Collider2D DemonRange in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
+            {
+                DemonRange.GetComponent<DemonRange>().damageReceived(attackDmg);
             }
 
 

@@ -346,7 +346,7 @@ public class BetterMovement : MonoBehaviour
     //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
     //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
 
-    private const int STAMINE_REGEN = 25;   //25
+    private const int STAMINE_REGEN = 35;   //25
     private float maxStamine;
     public float stamine;
     public Image stamineBar;
@@ -399,7 +399,7 @@ public class BetterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (stamine < 100)
+        if (stamine < maxStamine)
         {
             stamine += STAMINE_REGEN * Time.deltaTime;
         }
@@ -416,7 +416,7 @@ public class BetterMovement : MonoBehaviour
         for (int i = 0; i < collider.Length; i++)
         {
 
-            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul")
+            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile")
             {
                 //Destroy(gameObject);
                 musashi.transform.position = respawn.position;

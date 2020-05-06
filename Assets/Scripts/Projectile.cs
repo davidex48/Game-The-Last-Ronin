@@ -216,16 +216,20 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.tag == "Enemy")
+        else if (collision.tag == "Enemy")
         {
-
             collision.gameObject.GetComponent<Enemy>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
-
         }
-        if (collision.tag == "Ground")
+
+        else if (collision.tag == "Ground")
         {
 
+            Destroy(gameObject);
+        }
+        else if (collision.tag == "RangedTengu")
+        {
+            collision.gameObject.GetComponent<DemonRange>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
         }
 
