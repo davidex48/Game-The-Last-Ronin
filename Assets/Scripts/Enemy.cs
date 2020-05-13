@@ -15,15 +15,10 @@ public class Enemy : MonoBehaviour
     bool enemyChasing;
     public float desaggroRange;
     public float agroRange;
-    //public int stoppingDistance;
-    //[SerializeField] private float damageValue1;
-    //[SerializeField] private float actualLife;
-    //[SerializeField] public int lifeAmount;
-    [SerializeField] float speed = 0.05f;
-    //[SerializeField] float pushMagnitude = 10.0f;
+    [SerializeField] float speed;
     private Transform player;
     [SerializeField] Image lifeBar;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     public void damageReceived(int damageValue)
     {
@@ -42,6 +37,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        speed = 4.0f; // antes de multiplicar speed por deltaTime speed = 0.05f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyChasing = false;
         rb = GetComponent<Rigidbody2D>();
@@ -88,13 +84,14 @@ public class Enemy : MonoBehaviour
      }*/
     void ChasePlayer()
     {
-        /*if(transform.position.x < player.position.x)
-        {
-        rb.velocity = new Vector2(speed, 0); //Enemigo a la izquierda del player, por eso muevo hacia la derecha (speed positiva)*/
-        Vector3 dirVec = player.transform.position - transform.position;
-        transform.position += dirVec.normalized * speed;
+
+        //Vector3 dirVec = player.transform.position - transform.position;
+        //transform.position += dirVec.normalized * speed;  Asi se movia antes pero habia conflicto con la relentizacion y multiplicamos speed * Yime.deltaTime para solucionarlo.
+
+        transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
         Vector3 characterScale = transform.localScale;
+
         if (player.transform.position.x <= transform.position.x)
         {
             characterScale.x = 1.3f;

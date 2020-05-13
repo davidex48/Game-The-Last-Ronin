@@ -31,9 +31,8 @@ public class HellHound : MonoBehaviour
     [SerializeField] private float damageValue1;
     //[SerializeField] private float actualLife;
     //[SerializeField] public int lifeAmount;
-    [SerializeField]private float speed = 0.115f;
-    
-    [SerializeField] private float JumpAttackSpeed = 0.20f;
+    [SerializeField]private float speed;
+    [SerializeField] private float JumpAttackSpeed;
     //[SerializeField] float pushMagnitude = 10.0f;
     private Transform player;
     [SerializeField] Image lifeBar;
@@ -57,8 +56,8 @@ public class HellHound : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        speed = 0.115f;             //0.135
-        JumpAttackSpeed = 0.2f;   // 0.23
+        speed = 6.3f;             //0.115f
+        JumpAttackSpeed = 10.5f;   // 0.2f
 
         StartAttackTime = AttackTime;
         resetCooldown = Cooldown = 1.2f;
@@ -107,9 +106,18 @@ public class HellHound : MonoBehaviour
         if (distToPlayer > 3.85f  || !canAttack)     //Si estoy en coldown de ataque siempre entrare aqui asi evito que salte/ataque continuamente 
         {
             anim.SetBool("isRunning", true);
+
+               
+            
+            //Mov bueno pero no funciona con relentizacion!
             Vector3 dirVec = player.transform.position - transform.position;
             dirVec.y = 0.0f;
-            transform.position += dirVec.normalized * speed;
+            transform.position += dirVec.normalized * speed * Time.deltaTime;
+            /*Vector2 v = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            v.y = 0.0f;
+            transform.position = v;*/
+
+
             AttackTime = StartAttackTime;  //Asi evito arrastrar el tiempo del if de la linea 122 si salgo de su alcanze de salto   
 
             Cooldown -= Time.deltaTime;
@@ -127,23 +135,34 @@ public class HellHound : MonoBehaviour
 
                 anim.SetBool("isClose", true);
 
-                Vector3 dirVec; //= player.transform.position - transform.position;
-                dirVec.x = player.transform.position.x - transform.position.x;
-                dirVec.y = (player.transform.position.y - transform.position.y)/3;
-                dirVec.z = player.transform.position.z - transform.position.z;     
+                //Bueno anterior!
+                 Vector3 dirVec; //= player.transform.position - transform.position;
+                 dirVec.x = player.transform.position.x - transform.position.x;
+                 dirVec.y = (player.transform.position.y - transform.position.y)/3;
+                 dirVec.z = player.transform.position.z - transform.position.z;
+
+                /*Vector2 v = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                v.y /= 3;   //v.y = v.y / 3;*/
+                
 
                 if (AttackTime > StartAttackTime/2)
                 {
-                  
-                    
-                 transform.position += (dirVec.normalized + Vector3.up * 0.4f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
-                                                                                                   //El vector.Up * X(0.5) me modifica el valor en y, mientras mas grande mas salta
+                    /*v.y += JumpAttackSpeed;
+                    transform.position = v;*/
+
+                    //Bueno anterior!
+                    //transform.position += (dirVec.normalized + Vector3.up * 0.4f) * JumpAttackSpeed * Time.deltaTime;
+                    transform.position += (dirVec.normalized + Vector3.up * 0.4f) * JumpAttackSpeed * Time.deltaTime;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
+                                                                                                   //El vector.Up * X(0.4) me modifica el valor en y, mientras mas grande mas salta
                 }
                 else
                 {
-                   
-                    transform.position += (dirVec.normalized - Vector3.up * 0.4f) * JumpAttackSpeed;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
-                                                                                                      //El vector.Up * X me modifica el valor en y, mientras mas grande mas salta
+                    /*v.y -= JumpAttackSpeed;
+                     transform.position = v;*/
+
+                    //Bueno anterior!
+                    //transform.position += (dirVec.normalized - Vector3.up * 0.4f) * JumpAttackSpeed * Time.deltaTime;
+                    transform.position += (dirVec.normalized - Vector3.up * 0.4f) * JumpAttackSpeed * Time.deltaTime;  //Movimineto mas rapido que el movimineto normal para dar sensacion de que se nos echa encima
 
                     //Jump attack Speed solo deveria afectar al eje X porque al salto tambien me lo multiplica
                 }

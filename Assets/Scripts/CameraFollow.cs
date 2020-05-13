@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    //[SerializeField] GameObject player;
+    private Transform player;
     public float cameraSpeed = 50.0f;
 
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void LateUpdate()
     {

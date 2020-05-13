@@ -108,7 +108,7 @@ public class attack_Player : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PlayerAttack"); //Sonido del ataque
             
             animator.SetTrigger("Attack");  //Animacion del ataque.
-            Bullet.canShoot = false;        //Asi controlo que no pueda disparar a la misma vez que ataco.
+            Bullet.canShoot = false;        //Pongo el flag que me permite disparar a false en el script Bullet!!! Asi controlo que no pueda disparar a la misma vez que ataco.
 
         }
     }

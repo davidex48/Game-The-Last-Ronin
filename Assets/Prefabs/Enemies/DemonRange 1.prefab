@@ -12,13 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63251ebb97e0a1a409720068f112fc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyValue: 100
-  enemyHealth: 100
-  shootCooldown: 1.8
   fireProjectile: {fileID: 2051258719979304158, guid: 6da813381695bca4a978292e6da35d73,
     type: 3}
-  stoppingDistance: 9
-  retreatDistance: 7.5
   desaggroRange: 12
   agroRange: 10
   speed: 0.05
@@ -32,7 +27,7 @@ PrefabInstance:
     - target: {fileID: 6847530720492652936, guid: aadd6409b9fbb24478754182568929ad,
         type: 3}
       propertyPath: m_Name
-      value: DemonRange
+      value: DemonRange 1
       objectReference: {fileID: 0}
     - target: {fileID: 6847530720492652936, guid: aadd6409b9fbb24478754182568929ad,
         type: 3}
@@ -43,31 +38,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.74101985
-      objectReference: {fileID: 0}
-    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6293840149516181989, guid: aadd6409b9fbb24478754182568929ad,
         type: 3}
@@ -124,10 +94,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.74101985
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154917115271601138, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2356676988774499072, guid: aadd6409b9fbb24478754182568929ad,
         type: 3}
       propertyPath: m_Constraints
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599870719365784193, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad, type: 3}

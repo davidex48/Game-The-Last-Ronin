@@ -6,26 +6,22 @@ using UnityEngine.Experimental.UIElements;
 public class DemonRange : MonoBehaviour
 {
 
-    public int enemyValue = 100;
-    public int enemyHealth = 100;           //No hacerlo static.   
+    private int enemyValue = 100;
+    private int enemyHealth = 75;           //No hacerlo static.   
 
     private float timeToShoot;
-    public float shootCooldown;
+    private float shootCooldown;
     public GameObject fireProjectile;
 
     private float distToPlayer; 
-    public float stoppingDistance;
-    public float retreatDistance;
+    private float stoppingDistance;
+    private float retreatDistance;
 
     bool enemyChasing;
     public float desaggroRange;
     public float agroRange;
 
-    //[SerializeField] private float damageValue1;
-    //[SerializeField] private float actualLife;
-    //[SerializeField] public int lifeAmount;
     [SerializeField] float speed;
-    //[SerializeField] float pushMagnitude = 10.0f;
     private Transform player;
     [SerializeField] Image lifeBar;
     Rigidbody2D rb;
@@ -33,22 +29,17 @@ public class DemonRange : MonoBehaviour
     public void damageReceived(int damageValue)
     {
         enemyHealth -= damageValue;
-
-        //ManageEnemy.enemyHealth -= damageValue;
-
-        //lifeBar.fillAmount = actualLife / lifeAmount;
         if (enemyHealth <= 0)
         {
-            // SpawnManager.instance.removeEnemy(this);
             Destroy(gameObject);
             Debug.Log("Damage Funct CaC ON. Marramiau");
         }
     }
-    // Use this for initialization
+
     void Start()
     {
-        timeToShoot = shootCooldown;    // = 2?¿
-        speed = 4.5f;
+        timeToShoot = shootCooldown = 1.65f;    // = 2?¿
+        speed = 4.0f;
         stoppingDistance = 8.0f;
         retreatDistance = 7.2f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
