@@ -12,15 +12,15 @@ public class BetterMovement : MonoBehaviour
     //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
     //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
 
-    private const int STAMINE_REGEN = 35;   //25
+    private const int STAMINE_REGEN = 35, MANA_REGEN = 5, MANA_CONSUMED = 37;   
     private const float NATURAL_SCALE_TIME = 1.0f, SLOWED_SCALE_TIME = 0.25f;
     private float maxStamine, velocity, mana, maxMana;
     public float stamine;   //No puede ser private porque se usa en script Bullet
-    public Image stamineBar;
+    public Image stamineBar, manaBar;
     private Transform respawn;
     public Animator animator;
     Rigidbody2D musashi;
-    CapsuleCollider2D CapsulPlayerCol;               //Cambiar noms
+    CapsuleCollider2D CapsulPlayerCol;               
     [SerializeField] private float horizontalMove, verticalForce, fallMultiplier, lowJumpMultiplier;
     [SerializeField]
     private bool isGrounded;
@@ -30,7 +30,7 @@ public class BetterMovement : MonoBehaviour
     //Antes eran static pero se ha cambiado. Ahora se llama a la variable desde el script Projectile con: player.GetComponent<BetterMovement>().velxKunai;
 
     private bool timeSlowed, canSlowTime;
-    private float fixedDeltaT;
+    private float fixedDeltaT;  //Copia de fixedDeltaTime para poder ponerlo en su valor original cuando vario timeScale 
 
     public void staminaReductor(int staminaValue)
     {
@@ -38,10 +38,7 @@ public class BetterMovement : MonoBehaviour
         Debug.Log("Funcion Stamine ONN!!!!");      
     }
 
-    private void manaReductor()
-    {
 
-    }
     void Start()
     {
         fixedDeltaT = Time.fixedDeltaTime;
@@ -50,8 +47,10 @@ public class BetterMovement : MonoBehaviour
         verticalForce = 6.6f;
         fallMultiplier = 2.0f;
         lowJumpMultiplier = 3.5f;
+        manaBar = GameObject.Find("ManaBarFill").GetComponent<Image>();
         stamineBar = GameObject.Find("StamineBarFill").GetComponent<Image>();
         stamine = maxStamine = 75;
+        mana = maxMana = 40;
         respawn = GameObject.FindGameObjectWithTag("Respawn").transform;
         velxKunai = velyKunai = 0.0f;
         canSlowTime = true;
@@ -67,11 +66,41 @@ public class BetterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //STAMINE Regen
+
         if (stamine < maxStamine)
         {
             stamine += STAMINE_REGEN * Time.deltaTime;
         }
+
+        //MANA Control & Regen
+
+        if (mana >= maxMana / 4)    
+        {
+            canSlowTime = true;
+        }
+
+        if (mana < maxMana && !timeSlowed)
+        {
+            mana += MANA_REGEN * Time.deltaTime;
+        }
+        else if(timeSlowed && mana > 0)
+        {
+            mana -= MANA_CONSUMED * Time.deltaTime;    
+        }
+        else if(timeSlowed && mana <= 0)
+        {
+            if (mana <= 0)  
+            {
+                mana = 0;
+            }
+            timeSlowed = false;
+            canSlowTime = false; //Como solo pongo en falso slowTime aqui consigo que si la mana me baja a zero no puedo volver a usar relentizacion hasta que me   MANA > 1/4     
+            //pero si la paro antes si que puedo activar incluso si    MANA < 1/4
+        }
+       
         stamineBar.fillAmount = stamine / maxStamine;
+        manaBar.fillAmount = mana / maxMana;
     }
 
     private void Update()
@@ -357,19 +386,21 @@ public class BetterMovement : MonoBehaviour
     }
         void SlowTime()
         {
+
             if (Input.GetButtonDown("Fire3") && canSlowTime && !timeSlowed)
             {   //
                 Time.timeScale = SLOWED_SCALE_TIME;
                 Time.fixedDeltaTime *= Time.timeScale; //Para que los timers vayan a la par con el tiempo (cooldowns de mushasi y enemigos)
                 timeSlowed = true;
             }
-            else if(Input.GetButtonDown("Fire3") && canSlowTime && timeSlowed)
+            else if((Input.GetButtonDown("Fire3") && timeSlowed) || !canSlowTime)
             {
                 Time.timeScale = NATURAL_SCALE_TIME;
                 Time.fixedDeltaTime = fixedDeltaT;
                 //Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
                 timeSlowed = false;
-            } 
+            }
+        
     }
 
     private void HandleLayers()
