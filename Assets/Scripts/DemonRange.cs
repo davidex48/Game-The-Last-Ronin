@@ -26,6 +26,12 @@ public class DemonRange : MonoBehaviour
     [SerializeField] Image lifeBar;
     Rigidbody2D rb;
 
+
+    private void Take_To_Respawn_Pos(bool isPlayerDead)
+    {
+        if (isPlayerDead) Destroy(gameObject);
+    }
+
     public void damageReceived(int damageValue)
     {
         enemyHealth -= damageValue;
@@ -50,6 +56,10 @@ public class DemonRange : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        bool check_If_Player_Dead = player.GetComponent<BetterMovement>().isDead;
+
+        Take_To_Respawn_Pos(check_If_Player_Dead);  //Si el jugador muere elimino al enemigo. Con el mismo flagtmb se me reactiva respawn y genero otro enemigo en la pos del respawn
+
         distToPlayer = Vector2.Distance(transform.position, player.position);
         if (distToPlayer < agroRange)
         {

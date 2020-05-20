@@ -53,6 +53,12 @@ public class HellHound : MonoBehaviour
             //Debug.Log("Damage Funct CaC ON. Marramiau");
         }
     }
+
+    private void Take_To_Respawn_Pos(bool isPlayerDead)
+    {
+        if (isPlayerDead) Destroy(gameObject);
+    }
+
     // Use this for initialization
     private void Start()
     {
@@ -71,6 +77,10 @@ public class HellHound : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        bool check_If_Player_Dead = player.GetComponent<BetterMovement>().isDead;
+
+        Take_To_Respawn_Pos(check_If_Player_Dead);  //Si el jugador muere elimino al enemigo. Con el mismo flagtmb se me reactiva respawn y genero otro enemigo en la pos del respawn
+
         //Debug.Log(anim.GetBool("isClose") + "Salto");
 
         distToPlayer = Vector2.Distance(transform.position, player.position);   //Calculamos dist del player

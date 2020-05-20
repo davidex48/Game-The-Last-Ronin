@@ -25,6 +25,7 @@ public class BetterMovement : MonoBehaviour
     [SerializeField]
     private bool isGrounded;
     public bool ableJump;
+    public bool isDead;
 
     public float velxKunai, velyKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai y para dar un ligero desvio en eje Y. No puede ser private porque se uasa en Projectile
     //Antes eran static pero se ha cambiado. Ahora se llama a la variable desde el script Projectile con: player.GetComponent<BetterMovement>().velxKunai;
@@ -55,10 +56,12 @@ public class BetterMovement : MonoBehaviour
         velxKunai = velyKunai = 0.0f;
         canSlowTime = true;
         timeSlowed = false;
+        isDead = false;
     }
 
     private void Awake()
     {
+        
         ableJump = false;
         musashi = GetComponent<Rigidbody2D>();
         CapsulPlayerCol = GetComponent<CapsuleCollider2D>();
@@ -66,6 +69,7 @@ public class BetterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //isDead = false;
         //STAMINE Regen
 
         if (stamine < maxStamine)
@@ -105,6 +109,7 @@ public class BetterMovement : MonoBehaviour
 
     private void Update()
     {
+        isDead = false;
         SlowTime();
          
         ableJump = false;
@@ -116,6 +121,7 @@ public class BetterMovement : MonoBehaviour
             if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile")
             {
                 //Destroy(gameObject);
+                isDead = true;
                 musashi.transform.position = respawn.position;
                 //this.transform.position = SpawnPoint.transform.position;
             }

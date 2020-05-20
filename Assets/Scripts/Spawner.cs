@@ -18,9 +18,17 @@ public class Spawner : MonoBehaviour
         canSpawn = true;
     }
 
+    void Activate_Respawn(bool is_Player_Dead)
+    {
+        if (is_Player_Dead) canSpawn = true;
+    }
 
     void FixedUpdate()
     {
+        bool check_If_Player_Dead = player.GetComponent<BetterMovement>().isDead;
+
+        Activate_Respawn(check_If_Player_Dead);
+
         if (canSpawn)
         {
             float distToPlayer = Vector2.Distance(transform.position, player.transform.position);
@@ -41,6 +49,6 @@ public class Spawner : MonoBehaviour
                 }
             }
         }
-        else Destroy(this.gameObject);
+        //else Destroy(this.gameObject);
     }
 }
