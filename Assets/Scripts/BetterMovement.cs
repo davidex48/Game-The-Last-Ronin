@@ -18,6 +18,8 @@ public class BetterMovement : MonoBehaviour
     public float stamine;   //No puede ser private porque se usa en script Bullet
     public Image stamineBar, manaBar;
     private Transform respawn;
+
+    GameObject checkPointManager;
     public Animator animator;
     Rigidbody2D musashi;
     CapsuleCollider2D CapsulPlayerCol;               
@@ -42,6 +44,8 @@ public class BetterMovement : MonoBehaviour
 
     void Start()
     {
+        checkPointManager = GameObject.FindGameObjectsWithTag("CheckpointManager")[0];
+
         fixedDeltaT = Time.fixedDeltaTime;
         horizontalMove = 10.0f;
         velocity = 10.0f; 
@@ -119,11 +123,18 @@ public class BetterMovement : MonoBehaviour
         {
 
             if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile")
-            {
-                //Destroy(gameObject);
-                isDead = true;
-                musashi.transform.position = respawn.position;
-                //this.transform.position = SpawnPoint.transform.position;
+            {          
+                isDead = true;  //Flag que se usa en script de los enemigos para destruyrlos y en respawns para ponerlo a tru y volverlos a instanciar en su pos inicial
+                if(checkPointManager != null && checkPointManager.GetComponent<CheckPointManager>().GetPos() != new Vector3(-1, -1, -1))
+                {
+                    this.transform.position = checkPointManager.GetComponent<CheckPointManager>().GetPos();
+                }
+                else
+                {
+                    musashi.transform.position = respawn.position;
+                }
+                    
+              
             }
         }
 
@@ -148,7 +159,7 @@ public class BetterMovement : MonoBehaviour
         //return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
         bool toRetRight, toRetLeft;
         toRetRight = wallCol(Vector2.right);
-        toRetLeft = wallCol(Vector2.left);          //Aqui evaluo les dues funcions tot i que al return si laprimera es true ja retorna true perque es OR ||
+        toRetLeft = wallCol(Vector2.left);          //Aqui evaluo les dues funcions tot i que al return si la primera es true ja retorna true perque es OR ||
 
         return toRetRight || toRetLeft;
     }

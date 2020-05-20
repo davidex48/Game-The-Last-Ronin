@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5745268255322044396}
   - component: {fileID: 1492706462257701424}
   - component: {fileID: 1343662011157291918}
+  - component: {fileID: 9053586343383261226}
   m_Layer: 0
   m_Name: SmallBlade
   m_TagString: Pendul
@@ -118,3 +119,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.965
+--- !u!233 &9053586343383261226
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4667882972714890326}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -13.684, y: 7.266}
+  m_UseMotor: 1
+  m_Motor:
+    m_MotorSpeed: 180
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359

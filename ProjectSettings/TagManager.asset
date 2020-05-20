@@ -15,6 +15,7 @@ TagManager:
   - RangedTengu
   - TenguProjectile
   - GM
+  - CheckpointManager
   layers:
   - Default
   - TransparentFX
