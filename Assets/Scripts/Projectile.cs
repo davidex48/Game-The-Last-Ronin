@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     public GameObject enemy;
     public GameObject HellHound;
     public GameObject player;
+    public GameObject boss;
     private Transform playerTrans;
     private Rigidbody2D kunaiRB;
     public float bulletSpeed = 1.5f;
@@ -29,6 +30,7 @@ public class Projectile : MonoBehaviour
         playerTrans = player.transform;
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         HellHound = GameObject.FindGameObjectWithTag("HellHound_Enemy");
+        boss = GameObject.FindGameObjectWithTag("Boss");
 
         
 
@@ -87,6 +89,12 @@ public class Projectile : MonoBehaviour
         else if (collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<Enemy>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
+            Destroy(gameObject);
+        }
+
+        else if (collision.tag == "Boss")
+        {
+            collision.gameObject.GetComponent<BossHealth>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
         }
 

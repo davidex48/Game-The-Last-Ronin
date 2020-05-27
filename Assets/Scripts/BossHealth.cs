@@ -17,9 +17,11 @@ public class BossHealth : MonoBehaviour
             return;
 
         BosssHealth -= damageValue;
-        
 
-            if (BosssHealth <= 10)
+    }
+    private void FixedUpdate()
+    {
+        if (BosssHealth <= 10)
         {
             GetComponent<Animator>().SetBool("IsEnraged", true);
             GetComponent<ParticleSystem>().Play();

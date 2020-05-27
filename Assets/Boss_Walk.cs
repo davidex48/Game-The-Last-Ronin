@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Boss_Walk : StateMachineBehaviour
 {
-
+    //Script que controla al Boss
     public float speed = 2.5f;
     public float attackRange = 3f;
-
+ 
     Transform player;
     Rigidbody2D rb;
     Boss boss;

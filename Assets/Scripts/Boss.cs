@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-
+    //Script que fa l'efecte mirall
     public Transform player;
 
     public bool isFlipped = false;
