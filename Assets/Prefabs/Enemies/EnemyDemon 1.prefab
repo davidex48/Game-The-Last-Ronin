@@ -290,5 +290,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dog: {fileID: 8300000, guid: 4c3b9d0859d941043bf87a6409477a35, type: 3}
-  Volume: 100
+  Volume: 40
   alreadyPlayed: 0
