@@ -16,6 +16,7 @@ TagManager:
   - TenguProjectile
   - GM
   - CheckpointManager
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Background
   - HellHound_Enemy
   - RangedTengu
-  - 
+  - Boss
   - 
   - 
   - 
