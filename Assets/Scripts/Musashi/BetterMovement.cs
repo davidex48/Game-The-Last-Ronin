@@ -12,7 +12,7 @@ public class BetterMovement : MonoBehaviour
     //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
     //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
 
-    public AudioClip stepSound;
+    public AudioClip stepSound, slowOn, slowOff;
     public AudioSource fuenteAudio;
 
     private const int STAMINE_REGEN = 35, MANA_REGEN = 5, MANA_CONSUMED = 37;   
@@ -115,11 +115,6 @@ public class BetterMovement : MonoBehaviour
         stamineBar.fillAmount = stamine / maxStamine;
         manaBar.fillAmount = mana / maxMana;
         
-        /*if (Input.GetButtonDown("Fire1"))
-        { //&& Bullet.canShoot) {
-            fuenteKunai.clip = throwKunai;
-            fuenteKunai.Play();
-        }*/
     }
 
     private void Update()
@@ -150,23 +145,13 @@ public class BetterMovement : MonoBehaviour
         }
 
         MoveCharacter();
-
-     
+  
         BetterJump();
-/*        if (musashi.velocity.x == 0)// && musashi.velocity.y != 0)
-        {
-            fuenteAudio.clip = stepSound;
-            fuenteAudio.Play();
-        }*/
+
         checkWallCol();
-
-        // HandleLayers();
-
-        //Mirar de que suene bien!
-
-
-
     }
+
+
     bool checkWallCol()
     {
         //return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
@@ -432,28 +417,26 @@ public class BetterMovement : MonoBehaviour
 
             if (Input.GetButtonDown("Fire3") && canSlowTime && !timeSlowed)
             {   //
+                fuenteAudio.Stop();
+                fuenteAudio.clip = slowOn;
+                fuenteAudio.Play();
                 Time.timeScale = SLOWED_SCALE_TIME;
                 Time.fixedDeltaTime *= Time.timeScale; //Para que los timers vayan a la par con el tiempo (cooldowns de mushasi y enemigos)
                 timeSlowed = true;
             }
             else if((Input.GetButtonDown("Fire3") && timeSlowed) || !canSlowTime)
             {
+                fuenteAudio.Stop();
+                fuenteAudio.clip = slowOff;
+                fuenteAudio.Play();
                 Time.timeScale = NATURAL_SCALE_TIME;
                 Time.fixedDeltaTime = fixedDeltaT;
                 //Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
                 timeSlowed = false;
-            }
-        
+            }       
     }
 
-    /*private void HandleLayers()
-    {
-        if (!isGrounded)
-        {
-            animator.SetLayerWeight(1, 1);
-        }
-        animator.SetLayerWeight(1, 0);
-    }*/
+ 
 }
 
 
