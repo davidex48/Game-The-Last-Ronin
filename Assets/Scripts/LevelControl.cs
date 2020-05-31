@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelControl : MonoBehaviour
-{
+{ 
     public int index;
     public string levelName;
     void OnTriggerEnter2D(Collider2D other)
@@ -13,6 +13,7 @@ public class LevelControl : MonoBehaviour
         if (other.CompareTag("Player"))
 
         {
+ 
             //Cargar level amb build index
             SceneManager.LoadScene(index);
             //Cargar level pel nom
