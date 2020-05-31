@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117ccd06150b00449a923b2e4e4b294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fuenteAudio: {fileID: 0}
   bladesSound: {fileID: 8300000, guid: 7195f088f9c211c4e9c1febc417f8af1, type: 3}
   delay: 0
   current_time: 0
@@ -87,7 +88,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7195f088f9c211c4e9c1febc417f8af1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.19
   m_Pitch: 1
   Loop: 1
   Mute: 0

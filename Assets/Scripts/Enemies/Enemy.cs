@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     AudioSource fuenteAudio;
 
     public static int enemyValue = 100;
-    public int enemyHealth = 100;           //No hacerlo static.   
+    public int enemyHealth;           //No hacerlo static.   
 
     //Static: Todos los objetos(gameObjects sean enemigos piedras o lo que sea) que contienen el script de la clase (Enemy) pueden modificar el valor. A demas este valor se ve modificado en todos los 
     //GameObjects que tienen attched el script de la clase. Por este motivo al atacar o lanzar kunai le bajaba la vida a todos los Onis(que todos contenian script enemy). Al quitarle static haces que 
@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        enemyHealth = 100;
         fuenteAudio = GetComponent<AudioSource>();
         speed = 4.0f; // antes de multiplicar speed por deltaTime speed = 0.05f;
         player = GameObject.FindGameObjectWithTag("Player").transform;

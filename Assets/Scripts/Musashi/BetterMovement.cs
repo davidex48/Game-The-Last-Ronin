@@ -131,7 +131,8 @@ public class BetterMovement : MonoBehaviour
         for (int i = 0; i < collider.Length; i++)
         {
 
-            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile" || collider[i].gameObject.tag == "Boss" || bossHit)
+            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile" 
+                || collider[i].gameObject.tag == "Boss" || bossHit || collider[i].gameObject.tag == "OutOfMap")
             {
                 if (bossHit) bossHit = false;
                 isDead = true;  //Flag que se usa en script de los enemigos para destruyrlos y en respawns para ponerlo a tru y volverlos a instanciar en su pos inicial

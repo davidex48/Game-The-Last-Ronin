@@ -74,7 +74,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9219aaafe27e8b1429d809726a968ce2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -311,6 +311,7 @@ MonoBehaviour:
   isGrounded: 0
   ableJump: 0
   isDead: 0
+  bossHit: 0
   velxKunai: 0
   velyKunai: 0
   timeSlowed: 0
@@ -600,7 +601,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bd563fbdd720c2b4d99af04adeb93322, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.65
+  m_Volume: 0.52
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -696,7 +697,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 67df4298fd8ead14fbce8710e301610a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.63
+  m_Volume: 0.52
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -19,7 +19,7 @@ public class LevelControl : MonoBehaviour
             SceneManager.LoadScene(index);
             //Cargar level pel nom
             SceneManager.LoadScene(levelName);
-            animator.SetTrigger("FadeOut");
+            //animator.SetTrigger("FadeOut");
 
             //Restart level
            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

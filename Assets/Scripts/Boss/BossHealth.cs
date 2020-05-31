@@ -9,6 +9,7 @@ public class BossHealth : MonoBehaviour
     float current_time, cooldown;
     public AudioClip hitSound;
     AudioSource fuenteAudio;
+    public GameObject endPortal;
     public GameObject TempDeadSound;
     private float bossMaxHealth, bossHealth;
 
@@ -60,6 +61,7 @@ public class BossHealth : MonoBehaviour
 
         if (bossHealth <= 0)
         {
+            Instantiate(endPortal, this.transform.position, this.transform.rotation);
             Instantiate(TempDeadSound, this.transform.position, this.transform.rotation);
             Die();
         }

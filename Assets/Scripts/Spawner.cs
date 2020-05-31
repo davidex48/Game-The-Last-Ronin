@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        distToSpawn = 25.0f;
+        distToSpawn = 17.0f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         canSpawn = true;
     }

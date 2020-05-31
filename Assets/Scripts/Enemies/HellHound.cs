@@ -9,7 +9,7 @@ public class HellHound : MonoBehaviour
     AudioSource fuenteAudio;
 
     private static int enemyValue = 50;
-    public int enemyHealth = 50;           //No hacerlo static.   
+    public int enemyHealth;           //No hacerlo static.   
 
     //Static: Todos los objetos(gameObjects sean enemigos piedras o lo que sea) que contienen el script de la clase (Enemy) pueden modificar el valor. A demas este valor se ve modificado en todos los 
     //GameObjects que tienen attched el script de la clase. Por este motivo al atacar o lanzar kunai le bajaba la vida a todos los Onis(que todos contenian script enemy). Al quitarle static haces que 
@@ -23,8 +23,8 @@ public class HellHound : MonoBehaviour
 
     bool enemyChasing;
     float distToPlayer;
-    public float desaggroRange = 8.5f;
-    public float agroRange = 6.5f;
+    public float desaggroRange;
+    public float agroRange;
     
     private bool canAttack = true;
     
@@ -67,9 +67,12 @@ public class HellHound : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        enemyHealth = 50;
+        desaggroRange = 11.5f;
+        agroRange = 10.0f;
         fuenteAudio = GetComponent<AudioSource>();
-        speed = 6.3f;             //0.115f
-        JumpAttackSpeed = 10.5f;   // 0.2f
+        speed = 5.8f;             //0.115f
+        JumpAttackSpeed = 8.5f;   // 0.2f
         resetHowlTime = timeToHowl = 6.3f;
         StartAttackTime = AttackTime;
         resetCooldown = Cooldown = 1.2f;

@@ -18,6 +18,7 @@ TagManager:
   - CheckpointManager
   - Boss
   - GlobetOff
+  - OutOfMap
   layers:
   - Default
   - TransparentFX
