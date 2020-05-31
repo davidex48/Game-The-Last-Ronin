@@ -39,15 +39,15 @@ public class BossHealth : MonoBehaviour
         if (bossHealth <= 10)
         {
             GetComponent<Animator>().SetBool("IsEnraged", true);
-<<<<<<< Updated upstream
+
             //GetComponent<ParticleSystem>().Play();
             //ParticleSystem.EmissionModule em = GetComponent<ParticleSystem>().emission;
             //em.enabled = true;
-=======
-            GetComponent<ParticleSystem>().Play();
-            ParticleSystem.EmissionModule Fire_MS = GetComponent<ParticleSystem>().emission;
-            Fire_MS.enabled = true;
->>>>>>> Stashed changes
+
+            //GetComponent<ParticleSystem>().Play();
+            //ParticleSystem.EmissionModule Fire_MS = GetComponent<ParticleSystem>().emission;
+            //Fire_MS.enabled = true;
+
         }
 
         if (bossHealth <= 0)
