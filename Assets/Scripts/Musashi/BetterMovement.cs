@@ -35,7 +35,7 @@ public class BetterMovement : MonoBehaviour
     public float velxKunai, velyKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai y para dar un ligero desvio en eje Y. No puede ser private porque se uasa en Projectile
     //Antes eran static pero se ha cambiado. Ahora se llama a la variable desde el script Projectile con: player.GetComponent<BetterMovement>().velxKunai;
 
-    private bool timeSlowed, canSlowTime;
+    public bool timeSlowed, canSlowTime;
     private float fixedDeltaT;  //Copia de fixedDeltaTime para poder ponerlo en su valor original cuando vario timeScale 
 
     public void staminaReductor(int staminaValue)
@@ -115,11 +115,6 @@ public class BetterMovement : MonoBehaviour
         stamineBar.fillAmount = stamine / maxStamine;
         manaBar.fillAmount = mana / maxMana;
         
-        /*if (Input.GetButtonDown("Fire1"))
-        { //&& Bullet.canShoot) {
-            fuenteKunai.clip = throwKunai;
-            fuenteKunai.Play();
-        }*/
     }
 
     private void Update()
@@ -150,23 +145,13 @@ public class BetterMovement : MonoBehaviour
         }
 
         MoveCharacter();
-
-     
+  
         BetterJump();
-/*        if (musashi.velocity.x == 0)// && musashi.velocity.y != 0)
-        {
-            fuenteAudio.clip = stepSound;
-            fuenteAudio.Play();
-        }*/
+
         checkWallCol();
-
-        // HandleLayers();
-
-        //Mirar de que suene bien!
-
-
-
     }
+
+
     bool checkWallCol()
     {
         //return wallCol(Vector2.left) || wallCol(Vector2.right);      //Aqui no evalua les dos funcions
@@ -297,7 +282,7 @@ public class BetterMovement : MonoBehaviour
                 horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
 
 
-            if(Input.GetAxisRaw("Horizontal") != 0 && musashi.velocity.y != 0)//if (musashi.velocity.x == 0)
+            if(Input.GetAxisRaw("Horizontal") != 0 && musashi.velocity.y != 0)        //BUENO!!!!!!!!
             {
                     fuenteAudio.clip = stepSound;
                     fuenteAudio.Play();
@@ -381,8 +366,6 @@ public class BetterMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && ableJump)       //grounded()
         {
-            //animator.SetTrigger("takeOf");
-
             musashi.velocity = new Vector2(musashi.velocity.x, 1 * verticalForce);
             
             //musashi.velocity = Vector2.up * verticalForce;
@@ -432,28 +415,22 @@ public class BetterMovement : MonoBehaviour
 
             if (Input.GetButtonDown("Fire3") && canSlowTime && !timeSlowed)
             {   //
+
                 Time.timeScale = SLOWED_SCALE_TIME;
                 Time.fixedDeltaTime *= Time.timeScale; //Para que los timers vayan a la par con el tiempo (cooldowns de mushasi y enemigos)
                 timeSlowed = true;
             }
             else if((Input.GetButtonDown("Fire3") && timeSlowed) || !canSlowTime)
             {
+
                 Time.timeScale = NATURAL_SCALE_TIME;
                 Time.fixedDeltaTime = fixedDeltaT;
                 //Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
                 timeSlowed = false;
-            }
-        
+            }       
     }
 
-    /*private void HandleLayers()
-    {
-        if (!isGrounded)
-        {
-            animator.SetLayerWeight(1, 1);
-        }
-        animator.SetLayerWeight(1, 0);
-    }*/
+ 
 }
 
 

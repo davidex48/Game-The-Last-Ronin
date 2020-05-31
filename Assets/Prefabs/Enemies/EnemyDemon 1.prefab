@@ -177,6 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitSound: {fileID: 8300000, guid: 1ca3c37ad46f99e48b920d4a1201ce4d, type: 3}
   enemyHealth: 100
+  TempDeadSound: {fileID: 7262546737345870751, guid: 7bbfbf36e4e819944a4f1df96d4b7af7,
+    type: 3}
   desaggroRange: 12
   agroRange: 10
   speed: 0.05

@@ -28,7 +28,7 @@ public class EnableCanvas : MonoBehaviour
     }
     IEnumerator WaitForSec()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         Destroy(uiCanvas);
         Destroy(gameObject);
     }

@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     //GameObjects que tienen attched el script de la clase. Por este motivo al atacar o lanzar kunai le bajaba la vida a todos los Onis(que todos contenian script enemy). Al quitarle static haces que 
     //cada oni tenga su propia enemyHealth.
 
+    public GameObject TempDeadSound;
     bool enemyChasing;
     public float desaggroRange;
     public float agroRange;
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
         //lifeBar.fillAmount = actualLife / lifeAmount;
         if (enemyHealth <= 0)
         {
+            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation); //Me crea el kunai
             // SpawnManager.instance.removeEnemy(this);
             Destroy(gameObject);
             Debug.Log("Damage Funct CaC ON. Marramiau");
