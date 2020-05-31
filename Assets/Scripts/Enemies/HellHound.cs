@@ -40,6 +40,7 @@ public class HellHound : MonoBehaviour
     [SerializeField] Image lifeBar;
     private Rigidbody2D rb;
     private Animator anim;
+    public GameObject TempDeadSound;
 
     public void damageReceived(int damageValue)
     {
@@ -51,6 +52,7 @@ public class HellHound : MonoBehaviour
         //lifeBar.fillAmount = actualLife / lifeAmount;
         if (enemyHealth <= 0)
         {
+            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation);
             // SpawnManager.instance.removeEnemy(this);
             Destroy(gameObject);
             //Debug.Log("Damage Funct CaC ON. Marramiau");

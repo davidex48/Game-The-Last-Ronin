@@ -18,6 +18,8 @@ MonoBehaviour:
   desaggroRange: 12
   agroRange: 10
   speed: 0.05
+  TempDeadSound: {fileID: 7262546737345870751, guid: 7bbfbf36e4e819944a4f1df96d4b7af7,
+    type: 3}
 --- !u!1001 &7385848102725605390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,6 +121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356676988774499072, guid: aadd6409b9fbb24478754182568929ad,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3711190154963304640, guid: aadd6409b9fbb24478754182568929ad,
         type: 3}

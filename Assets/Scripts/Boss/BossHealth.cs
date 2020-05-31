@@ -7,7 +7,7 @@ public class BossHealth : MonoBehaviour
 {
     public AudioClip hitSound;
     AudioSource fuenteAudio;
-
+    public GameObject TempDeadSound;
     private float bossMaxHealth, bossHealth;
 
     //public ParticleSystem raged;
@@ -55,6 +55,7 @@ public class BossHealth : MonoBehaviour
 
         if (bossHealth <= 0)
         {
+            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation);
             Die();
         }
     }

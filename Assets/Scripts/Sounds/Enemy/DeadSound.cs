@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeadSound : MonoBehaviour
 {
-    AudioClip deadSound;
+    public AudioClip deadSound;
     AudioSource fuenteAudio;
 
     float timeToDestroy;
@@ -12,14 +12,16 @@ public class DeadSound : MonoBehaviour
     void Start()
     {
         fuenteAudio = GetComponent<AudioSource>();
-        timeToDestroy = 1.5f;
+        timeToDestroy = 8.5f;
         fuenteAudio.clip = deadSound;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*fuenteAudio.clip = deadSound;
+        fuenteAudio.Play();*/
         timeToDestroy -= Time.fixedDeltaTime;
-        if (timeToDestroy <= 0) Destroy(this.gameObject);       // Destroy(gameObject, bulletLife); Asi no ghace falta timer
+        if (timeToDestroy <= 0) Destroy(this.gameObject);       // Destroy(gameObject, bulletLife); Asi no hace falta timer
     }
 }

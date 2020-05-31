@@ -27,7 +27,7 @@ public class DemonRange : MonoBehaviour
     private Transform player;
     [SerializeField] Image lifeBar;
     Rigidbody2D rb;
-
+    public GameObject TempDeadSound;
 
     private void Take_To_Respawn_Pos(bool isPlayerDead)
     {
@@ -42,6 +42,7 @@ public class DemonRange : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation);
             Destroy(gameObject);
             Debug.Log("Damage Funct CaC ON. Marramiau");
         }
@@ -87,25 +88,17 @@ public class DemonRange : MonoBehaviour
         {
             StopChasingPlayer();
         }
-        //Moviment vell
-        /*
-        
-        */
+
     }
-    /* private void OnCollisionEnter2D(Collision2D collision)
-     {
-         if (collision.gameObject.tag == "Player")
-         {
-             Vector2 pushVector = (collision.gameObject.transform.position - transform.position).normalized;
-             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(pushVector * pushMagnitude, ForceMode2D.Impulse);
-             Debug.Log("THE COLLISION WAS WITH PJ");
-         }   
-     }*/
     void ChasePlayer()
     {
-        if(distToPlayer > stoppingDistance)
+        Vector2 PlayerX = (player.position);
+        PlayerX.y = this.transform.position.y;
+
+        if (distToPlayer > stoppingDistance)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            //transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerX, speed * Time.deltaTime);
         }
         else if(distToPlayer < stoppingDistance && distToPlayer > retreatDistance)
         {
@@ -113,7 +106,8 @@ public class DemonRange : MonoBehaviour
         }
         else if (distToPlayer < retreatDistance)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, - speed * Time.deltaTime);
+            //transform.position = Vector2.MoveTowards(transform.position, player.position, - speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerX, - speed * Time.deltaTime);
         }
 
             /*Vector3 dirVec = player.transform.position - transform.position;

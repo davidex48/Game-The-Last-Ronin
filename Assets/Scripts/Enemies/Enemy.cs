@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         //lifeBar.fillAmount = actualLife / lifeAmount;
         if (enemyHealth <= 0)
         {
-            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation); //Me crea el kunai
+            Instantiate(TempDeadSound, this.transform.position, this.transform.rotation); 
             // SpawnManager.instance.removeEnemy(this);
             Destroy(gameObject);
             Debug.Log("Damage Funct CaC ON. Marramiau");

@@ -149,6 +149,8 @@ MonoBehaviour:
   speed: 0.135
   JumpAttackSpeed: 0.245
   lifeBar: {fileID: 0}
+  TempDeadSound: {fileID: 8174195506601246028, guid: ab43fb0eefb5cb443a665c753804edbc,
+    type: 3}
 --- !u!70 &7626484507702712070
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
