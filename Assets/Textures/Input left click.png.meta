@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 07e74c6bc56d9a346bfafbce02fcbe5f
+guid: 28c4f96a5ac18b74dac8a46292ce66c2
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Input 2_0
+    21300000: Input left click_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -85,10 +85,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Input 2_0
+      name: Input left click_0
       rect:
         serializedVersion: 2
-        x: 53
+        x: 18
         y: 41
         width: 29
         height: 39
@@ -99,7 +99,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24a836fa88c98854294166cb0a3a83c3
+      spriteID: b444e131568fc714c84c4b5f96466a84
       vertices: []
       indices: 
       edges: []
@@ -107,7 +107,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0b84e984aa96bbd47a2367fbb0d6cef6
+    spriteID: e0e08ce2f6348234981569f1a101d29c
     vertices: []
     indices: 
     edges: []
