@@ -311,11 +311,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas IU Old
       objectReference: {fileID: 0}
-    - target: {fileID: 653687790404887413, guid: 563235a303acffb42a7781944ead59ce,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 148140723}
     - target: {fileID: 653687790404887408, guid: 563235a303acffb42a7781944ead59ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -421,6 +416,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 653687790404887413, guid: 563235a303acffb42a7781944ead59ce,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 148140723}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 563235a303acffb42a7781944ead59ce, type: 3}
 --- !u!1 &137608194
@@ -843,6 +843,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb5971f9557c806439ecb68443d2a106, type: 3}
+--- !u!1 &210861033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8737464648142501553}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8737464648142501554}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &261072525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23039,6 +23055,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0900857
       objectReference: {fileID: 0}
+    - target: {fileID: 8766777322615926265, guid: 15f6da357f95cb942a8a21f00f0eea6c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5646158104183883778, guid: 15f6da357f95cb942a8a21f00f0eea6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -23048,11 +23069,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 2.7687297
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766777322615926265, guid: 15f6da357f95cb942a8a21f00f0eea6c,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15f6da357f95cb942a8a21f00f0eea6c, type: 3}
@@ -25325,6 +25341,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1638636820}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2076804145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8737464648142501553}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076804146}
+  m_Layer: 0
+  m_Name: CheckPoint (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2076804146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8737464648142501553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076804145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8737464648142501554}
+  m_Father: {fileID: 45179161}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2081232642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25714,11 +25761,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 45179161}
     m_Modifications:
-    - target: {fileID: 2205177885769619419, guid: 6f5ad21fa71f120409a8dead84d06077,
-        type: 3}
-      propertyPath: m_Name
-      value: CheckPoint
-      objectReference: {fileID: 0}
     - target: {fileID: 5656946364264417951, guid: 6f5ad21fa71f120409a8dead84d06077,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25774,5 +25816,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2205177885769619419, guid: 6f5ad21fa71f120409a8dead84d06077,
+        type: 3}
+      propertyPath: m_Name
+      value: CheckPoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f5ad21fa71f120409a8dead84d06077, type: 3}
+--- !u!4 &8737464648142501554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 8737464648142501553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210861033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2076804146}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
