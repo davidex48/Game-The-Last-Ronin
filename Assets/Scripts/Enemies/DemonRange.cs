@@ -5,6 +5,8 @@ using UnityEngine.Experimental.UIElements;
 
 public class DemonRange : MonoBehaviour
 {
+    public AudioClip hitSound;
+    AudioSource fuenteAudio;
 
     private int enemyValue = 100;
     private int enemyHealth = 75;           //No hacerlo static.   
@@ -35,6 +37,9 @@ public class DemonRange : MonoBehaviour
     public void damageReceived(int damageValue)
     {
         enemyHealth -= damageValue;
+        fuenteAudio.clip = hitSound;
+        fuenteAudio.Play();
+
         if (enemyHealth <= 0)
         {
             Destroy(gameObject);
@@ -44,6 +49,7 @@ public class DemonRange : MonoBehaviour
 
     void Start()
     {
+        fuenteAudio = GetComponent<AudioSource>();
         timeToShoot = shootCooldown = 1.65f;    // = 2?¿
         speed = 4.0f;
         stoppingDistance = 8.0f;

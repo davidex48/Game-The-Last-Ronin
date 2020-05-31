@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
+    public AudioClip hitSound;
+    AudioSource fuenteAudio;
 
     public static int enemyValue = 100;
     public int enemyHealth = 100;           //No hacerlo static.   
@@ -23,8 +25,8 @@ public class Enemy : MonoBehaviour
     public void damageReceived(int damageValue)
     {
         enemyHealth -= damageValue;
-
-        //ManageEnemy.enemyHealth -= damageValue;
+        fuenteAudio.clip = hitSound;
+        fuenteAudio.Play(); ;
 
         //lifeBar.fillAmount = actualLife / lifeAmount;
         if (enemyHealth <= 0)
@@ -43,12 +45,19 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        fuenteAudio = GetComponent<AudioSource>();
         speed = 4.0f; // antes de multiplicar speed por deltaTime speed = 0.05f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyChasing = false;
         rb = GetComponent<Rigidbody2D>();
 
     }
+
+    /*private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Kunai") { fuenteAudio.clip = hitSound; fuenteAudio.Play(); }
+
+    }*/
 
     // Update is called once per frame
     void FixedUpdate()

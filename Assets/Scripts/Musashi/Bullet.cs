@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    
+   //AudioClip throwKunai;
+   //AudioSource fuenteAudio;
+
     public static bool canShoot;    //Publica porque attack_player necesita acceder a esta variable.
     private float coldownAfterAttack; 
     float resetColdownAfterAttack;
     public GameObject posicionInicialKunai;
     public GameObject Projectile;
     public GameObject player;
-    private int stamineShotCost;
+    public int stamineShotCost;
     void Start()
     {
+        //fuenteAudio = GetComponent<AudioSource>();
         stamineShotCost = 25;
         player = GameObject.FindGameObjectWithTag("Player");     
         coldownAfterAttack = 0.4f;
@@ -34,6 +37,9 @@ public class Bullet : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1") && canShoot)//&& elapsedTime > fireRate)
             {
+                //fuenteAudio.clip = throwKunai;
+                //fuenteAudio.Play();
+
                 player.GetComponent<BetterMovement>().staminaReductor(stamineShotCost); //Llamo a funcion de Bettermovment que me reduce la stamina
                 Instantiate(Projectile, posicionInicialKunai.transform.position, posicionInicialKunai.transform.rotation); //Me crea el kunai
             }

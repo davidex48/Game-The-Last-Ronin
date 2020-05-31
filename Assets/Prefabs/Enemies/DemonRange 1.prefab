@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63251ebb97e0a1a409720068f112fc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 1ca3c37ad46f99e48b920d4a1201ce4d, type: 3}
   fireProjectile: {fileID: 2051258719979304158, guid: 6da813381695bca4a978292e6da35d73,
     type: 3}
   desaggroRange: 12
@@ -148,6 +149,7 @@ PrefabInstance:
     - {fileID: 5184588310185527502, guid: aadd6409b9fbb24478754182568929ad, type: 3}
     - {fileID: 7899498288604053055, guid: aadd6409b9fbb24478754182568929ad, type: 3}
     - {fileID: 3113596127027362662, guid: aadd6409b9fbb24478754182568929ad, type: 3}
+    - {fileID: 1599870719365784193, guid: aadd6409b9fbb24478754182568929ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aadd6409b9fbb24478754182568929ad, type: 3}
 --- !u!1 &4141232887514648966 stripped
 GameObject:

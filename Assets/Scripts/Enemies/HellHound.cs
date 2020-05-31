@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HellHound : MonoBehaviour
 {
+    public AudioClip hitSound, initialHowl;
+    AudioSource fuenteAudio;
 
     private static int enemyValue = 50;
     public int enemyHealth = 50;           //No hacerlo static.   
@@ -14,8 +16,8 @@ public class HellHound : MonoBehaviour
     //cada oni tenga su propia enemyHealth.
     [SerializeField] private float AttackTime;
     private float StartAttackTime;
-    [SerializeField] private float Cooldown;
-    private float resetCooldown;
+    [SerializeField] private float Cooldown, timeToHowl;
+    private float resetCooldown, resetHowlTime;
     
     
 
@@ -42,7 +44,8 @@ public class HellHound : MonoBehaviour
     public void damageReceived(int damageValue)
     {
         enemyHealth -= damageValue;
-
+        fuenteAudio.clip = hitSound;
+        fuenteAudio.Play();
         //ManageEnemy.enemyHealth -= damageValue;
 
         //lifeBar.fillAmount = actualLife / lifeAmount;
@@ -62,11 +65,13 @@ public class HellHound : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        fuenteAudio = GetComponent<AudioSource>();
         speed = 6.3f;             //0.115f
         JumpAttackSpeed = 10.5f;   // 0.2f
-
+        resetHowlTime = timeToHowl = 6.3f;
         StartAttackTime = AttackTime;
         resetCooldown = Cooldown = 1.2f;
+
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyChasing = false;
@@ -93,6 +98,14 @@ public class HellHound : MonoBehaviour
         else if (distToPlayer > desaggroRange)
         {
             enemyChasing = false;
+            timeToHowl -= Time.deltaTime;
+
+            if(timeToHowl <= 0)
+            {
+                fuenteAudio.clip = initialHowl;
+                fuenteAudio.Play();
+                timeToHowl += resetHowlTime;
+            }
         }
 
 
@@ -106,7 +119,7 @@ public class HellHound : MonoBehaviour
             StopChasingPlayer();    //Movimiento de patrulla implementarlo!!!!!!!!!!!!!!!!! 
             
         }
-   
+    
     }
 
     void ChasePlayer()

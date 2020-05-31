@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Projectile : MonoBehaviour
 {
+    public AudioClip hitSound;
+    AudioSource fuenteAudio;
+
     private bool isDestroyed;
     public GameObject enemy;
     public GameObject HellHound;
@@ -39,6 +42,10 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+        fuenteAudio = GetComponent<AudioSource>();
+
+        fuenteAudio.clip = hitSound;
+        //fuenteAudio.Play();
         float rectifyVelX = player.GetComponent<BetterMovement>().velxKunai;
         float rectifyVelY = player.GetComponent<BetterMovement>().velyKunai / 2.5f; //Para quen el kunai tenga un ligero movimiento en eje y si estoy saltando
 
@@ -88,6 +95,7 @@ public class Projectile : MonoBehaviour
 
         else if (collision.tag == "Enemy")
         {
+
             collision.gameObject.GetComponent<Enemy>().damageReceived(damage);      //MANERA DE LLAMAR FUNCION DE OTRA CLASE GETCOMPONENT
             Destroy(gameObject);
         }

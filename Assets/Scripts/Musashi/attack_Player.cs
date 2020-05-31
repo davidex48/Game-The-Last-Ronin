@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class attack_Player : MonoBehaviour
 {
-    public static bool onAttack;
+    public bool onAttack;
     public Animator animator;
     public Transform attackPoint;
     public float attackRange;

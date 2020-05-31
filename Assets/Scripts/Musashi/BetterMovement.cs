@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//if(this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Runing") && this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump")) FindObjectOfType<AudioManager>().Play("MusashiRunning");
 public class BetterMovement : MonoBehaviour
 {
     public GameObject SpawnPoint;   //Hazerlo dinamico así GameObject.FindGameObjectWithTag("Player")
@@ -11,6 +11,9 @@ public class BetterMovement : MonoBehaviour
 
     //Si estoy colisionando rayo vertical con suelo v.y = 0, si rayo horizontal colisiona con ground v.x = 0;
     //Me he dado cuenta que la fuerza hace que mi personaje al caer desde muy alto penetre dentro de ground.
+
+    public AudioClip stepSound;
+    public AudioSource fuenteAudio;
 
     private const int STAMINE_REGEN = 35, MANA_REGEN = 5, MANA_CONSUMED = 37;   
     private const float NATURAL_SCALE_TIME = 1.0f, SLOWED_SCALE_TIME = 0.25f;
@@ -25,7 +28,7 @@ public class BetterMovement : MonoBehaviour
     CapsuleCollider2D CapsulPlayerCol;               
     [SerializeField] private float horizontalMove, verticalForce, fallMultiplier, lowJumpMultiplier;
     [SerializeField]
-    private bool isGrounded;
+    private bool onJump, isGrounded;
     public bool ableJump;
     public bool isDead;
 
@@ -44,6 +47,9 @@ public class BetterMovement : MonoBehaviour
 
     void Start()
     {
+
+        fuenteAudio = GetComponent<AudioSource>();
+
         checkPointManager = GameObject.FindGameObjectsWithTag("CheckpointManager")[0];
 
         fixedDeltaT = Time.fixedDeltaTime;
@@ -59,8 +65,7 @@ public class BetterMovement : MonoBehaviour
         respawn = GameObject.FindGameObjectWithTag("Respawn").transform;
         velxKunai = velyKunai = 0.0f;
         canSlowTime = true;
-        timeSlowed = false;
-        isDead = false;
+        isDead = onJump = timeSlowed = false;
     }
 
     private void Awake()
@@ -109,6 +114,12 @@ public class BetterMovement : MonoBehaviour
        
         stamineBar.fillAmount = stamine / maxStamine;
         manaBar.fillAmount = mana / maxMana;
+        
+        /*if (Input.GetButtonDown("Fire1"))
+        { //&& Bullet.canShoot) {
+            fuenteKunai.clip = throwKunai;
+            fuenteKunai.Play();
+        }*/
     }
 
     private void Update()
@@ -139,20 +150,22 @@ public class BetterMovement : MonoBehaviour
         }
 
         MoveCharacter();
-        //if (musashi.velocity.y > asd) musashi.velocity = new Vector2(musashi.velocity.x, asd);   Para controlar que la V no sobrepase un limite (variable asd)
+
+     
         BetterJump();
-
-        checkWallCol(); //LLamar a esta funcion donde la necesite o hacerme una var tipo bool = a checkwallCool¿?¿?¿?¿
-
-        HandleLayers();
-        /*if (ableJump)//Para comprobar si de esta manera caigo 
-        {      //Arreglar con RayCast
-               //RayCastAll de distancia corta que si me detecta colision con ground no me permita saltar y tambien para que la velocidad en X sea 0 (para caer en los muros)
-            musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
+/*        if (musashi.velocity.x == 0)// && musashi.velocity.y != 0)
+        {
+            fuenteAudio.clip = stepSound;
+            fuenteAudio.Play();
         }*/
+        checkWallCol();
 
-    
-    
+        // HandleLayers();
+
+        //Mirar de que suene bien!
+
+
+
     }
     bool checkWallCol()
     {
@@ -275,21 +288,28 @@ public class BetterMovement : MonoBehaviour
             
             musashi.velocity = new Vector2(musashi.velocity.x, 0);
             //Debug.Log("ABLE JUMP && GROUNDED ONN");
-            FindObjectOfType<AudioManager>().Play("MusashiRunning");
+        
         }
 
         if (!this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))      //Si no estoy en animacion de atacando se meve nornmal en los dos ejes X e Y
         {
-            horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
-            Vector2 targetVelocity = new Vector2(horizontalMove, musashi.velocity.y);
-            Vector2 m_velocity = Vector2.zero;
-            musashi.velocity = Vector2.SmoothDamp(musashi.velocity, targetVelocity, ref m_velocity, Time.deltaTime); //0.05    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
-            //musashi.velocity = targetVelocity;
-            velxKunai = horizontalMove; //Variables que uso para darle la velocidad del player al kunai.
-            velyKunai = musashi.velocity.y;
-            //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
+ 
+                horizontalMove = Input.GetAxisRaw("Horizontal") * velocity;
 
-            FindObjectOfType<AudioManager>().Play("MusashiRunning");
+
+            if(Input.GetAxisRaw("Horizontal") != 0 && musashi.velocity.y != 0)//if (musashi.velocity.x == 0)
+            {
+                    fuenteAudio.clip = stepSound;
+                    fuenteAudio.Play();
+            }
+
+            Vector2 targetVelocity = new Vector2(horizontalMove, musashi.velocity.y);
+                Vector2 m_velocity = Vector2.zero;
+                musashi.velocity = Vector2.SmoothDamp(musashi.velocity, targetVelocity, ref m_velocity, Time.deltaTime); //0.05    //CAMBIAR POS CUERPO AL MOVERSE, PASAS PUNTO A Y PUNTO B I CALCULA VELOCIDAD CORRECTA PARA QUE LLEGUE ALD ESTIBNO
+                                                                                                                         //musashi.velocity = targetVelocity;
+                velxKunai = horizontalMove; //Variables que uso para darle la velocidad del player al kunai.
+                velyKunai = musashi.velocity.y;
+
         }
 
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))  //Si estoy en animacion de ataque pongo el mov en exe X a 0 y lo matengo en Y para que cando ataque en el aire no flote.
@@ -298,18 +318,20 @@ public class BetterMovement : MonoBehaviour
             Vector2 targetVelocity = new Vector2(0, musashi.velocity.y); //Puedo dividir entre dos musashi.velocity.y para que se reduzca un poco el descenso
             Vector2 m_velocity = Vector2.zero;
             musashi.velocity = Vector2.SmoothDamp(musashi.velocity, targetVelocity, ref m_velocity, Time.deltaTime);
-            //musashi.velocity = targetVelocity;
             velxKunai = 0.0f;
-            velyKunai = 0.0f;
-            //musashi = GetComponent<Rigidbody2D>();//Sirve de algo?¿
-            //rb = GetComponent<Rigidbody2D>();//Sirve de algo?¿
-           
+            velyKunai = 0.0f;         
+        }
+
+        if (musashi.velocity.x == 0)// && musashi.velocity.y != 0)
+        {
+            fuenteAudio.clip = stepSound;
+            fuenteAudio.Play();
         }
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))   //Si estoy atacando y intento moverme no me gira el Pj
         {
             //Codigo espejo: Me orienta al personaje hacia donde estoy mirando. Cuando no estoy atacando funciona
             Vector3 characterScale = transform.localScale;
@@ -329,6 +351,7 @@ public class BetterMovement : MonoBehaviour
         {
             return;
         }
+        
 
     }
 
@@ -340,16 +363,19 @@ public class BetterMovement : MonoBehaviour
         {
             animator.SetBool("IsJumping", false);
             ableJump = true;
+            onJump = false;
         }
         else if (!grounded())
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
                 animator.SetBool("IsJumping", true);
+                //if (fuenteAudio.clip == stepSound) fuenteAudio.Stop();
             }
             else animator.SetBool("IsJumping", false);
 
             ableJump = false;
+            onJump = true;
         }
 
 
@@ -358,7 +384,7 @@ public class BetterMovement : MonoBehaviour
             //animator.SetTrigger("takeOf");
 
             musashi.velocity = new Vector2(musashi.velocity.x, 1 * verticalForce);
-
+            
             //musashi.velocity = Vector2.up * verticalForce;
         }
         //else
@@ -370,14 +396,14 @@ public class BetterMovement : MonoBehaviour
         if (musashi.velocity.y < 0 && !ableJump)
         {
 
-
+            if (fuenteAudio.clip == stepSound && onJump) fuenteAudio.Stop();
             musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
             //Debug.Log("ENTROOOO");
             //musashi.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (musashi.velocity.y > 0 && !Input.GetButton("Jump")) //!Input.GetButton("Jump")
         {
-
+            if (fuenteAudio.clip == stepSound && onJump) fuenteAudio.Stop();
 
             musashi.velocity = new Vector2(musashi.velocity.x, musashi.velocity.y + Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime);
 
@@ -420,14 +446,14 @@ public class BetterMovement : MonoBehaviour
         
     }
 
-    private void HandleLayers()
+    /*private void HandleLayers()
     {
         if (!isGrounded)
         {
             animator.SetLayerWeight(1, 1);
         }
         animator.SetLayerWeight(1, 0);
-    }
+    }*/
 }
 
 
