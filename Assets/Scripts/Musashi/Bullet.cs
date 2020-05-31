@@ -37,9 +37,6 @@ public class Bullet : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1") && canShoot)//&& elapsedTime > fireRate)
             {
-                //fuenteAudio.clip = throwKunai;
-                //fuenteAudio.Play();
-
                 player.GetComponent<BetterMovement>().staminaReductor(stamineShotCost); //Llamo a funcion de Bettermovment que me reduce la stamina
                 Instantiate(Projectile, posicionInicialKunai.transform.position, posicionInicialKunai.transform.rotation); //Me crea el kunai
             }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
+
+    float current_time, cooldown;
     public AudioClip hitSound;
     AudioSource fuenteAudio;
     public GameObject TempDeadSound;
@@ -18,28 +20,31 @@ public class BossHealth : MonoBehaviour
 
     void Start()
     {
+        current_time = cooldown = 1.8f;
         fuenteAudio = GetComponent<AudioSource>();
-        bossMaxHealth = bossHealth = 200;
+        bossMaxHealth = bossHealth = 300;
         hpBar = GameObject.Find("FillHealth").GetComponent<Image>();
-        /*raged = ParticleSystem.tag
-        player = GameObject.FindGameObjectWithTag("Player").transform;*/
+        //raged = ParticleSystem.tag
+
     }
 
         public void damageReceived(int damageValue)
     {
-        fuenteAudio.clip = hitSound;    //Hacer que suene otra cosa cuando es invulnerable?
+        fuenteAudio.clip = hitSound;    
         fuenteAudio.Play();
         if (isInvulnerable)
             return;
 
         bossHealth -= damageValue;
-        //hpBar.fillAmount -= (float)damageValue / 100;
-        hpBar.fillAmount = bossHealth / bossMaxHealth;//-= 0.25f;//
+
+        hpBar.fillAmount = bossHealth / bossMaxHealth;
 
     }
+
+
     private void FixedUpdate()
     {
-        
+
 
         if (bossHealth <= 10)
         {

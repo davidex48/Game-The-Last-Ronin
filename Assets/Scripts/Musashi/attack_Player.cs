@@ -80,37 +80,6 @@ public class attack_Player : MonoBehaviour
                 Boss.GetComponent<BossHealth>().damageReceived(attackDmg);
             }
 
-
-            /* Collider2D[] hitHellHound = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, HellHoundLayers);   //Me detecta colisiones a partir de circulo con (centro, radio
-             foreach (Collider2D HellHound_enemy in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
-             {
-
-                 HellHound_enemy.GetComponent<HellHound>().damageReceived(attackDmg);
-             }*/
-
-            /* foreach (Collider2D demon in hitEnemies)    //creo variable enemy y marco con ella a todo con lo que he detectado colision.
-             {
-                 demon.GetComponent<Enemy>().damageReceived(attackDmg);
-             }
-
-             foreach (Collider2D wolf in hitEnemies)
-             {
-
-             wolf.GetComponent<HellHound>().damageReceived(attackDmg);
-
-             }*/
-            /* if (Collider2D.FindObjectOfType<Enemy>())
-             {
-                 enemy.GetComponent<Enemy>().damageReceived(attackDmg);
-                 Debug.Log("Enemy Hit!!");
-             }
-             if (hitEnemies.OfType<Enemy>()//.tag<HellHound>())
-             {
-                 enemy.GetComponent<HellHound>().damageReceived(attackDmg);
-                 Debug.Log("Enemy Hit!!");
-             }*/
-
-
             FindObjectOfType<AudioManager>().Play("PlayerAttack"); //Sonido del ataque
             
             animator.SetTrigger("Attack");  //Animacion del ataque.

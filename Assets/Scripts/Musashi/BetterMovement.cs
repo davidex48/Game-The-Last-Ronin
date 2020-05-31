@@ -30,8 +30,9 @@ public class BetterMovement : MonoBehaviour
     [SerializeField]
     private bool onJump, isGrounded;
     public bool ableJump;
-    public bool isDead;
-
+    [SerializeField]
+    public bool isDead, bossHit;
+    
     public float velxKunai, velyKunai;//Para sumar la V de player al kunai y asi evitamos ir mas rapidos que el kunai y para dar un ligero desvio en eje Y. No puede ser private porque se uasa en Projectile
     //Antes eran static pero se ha cambiado. Ahora se llama a la variable desde el script Projectile con: player.GetComponent<BetterMovement>().velxKunai;
 
@@ -65,8 +66,10 @@ public class BetterMovement : MonoBehaviour
         respawn = GameObject.FindGameObjectWithTag("Respawn").transform;
         velxKunai = velyKunai = 0.0f;
         canSlowTime = true;
-        isDead = onJump = timeSlowed = false;
+        isDead = onJump = timeSlowed = bossHit = false;
     }
+
+
 
     private void Awake()
     {
@@ -128,8 +131,9 @@ public class BetterMovement : MonoBehaviour
         for (int i = 0; i < collider.Length; i++)
         {
 
-            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile")
-            {          
+            if (collider[i].gameObject.tag == "Enemy" || collider[i].gameObject.tag == "HellHound_Enemy" || collider[i].gameObject.tag == "Pendul" || collider[i].gameObject.tag == "TenguProjectile" || collider[i].gameObject.tag == "Boss" || bossHit)
+            {
+                if (bossHit) bossHit = false;
                 isDead = true;  //Flag que se usa en script de los enemigos para destruyrlos y en respawns para ponerlo a tru y volverlos a instanciar en su pos inicial
                 if(checkPointManager != null && checkPointManager.GetComponent<CheckPointManager>().GetPos() != new Vector3(-1, -1, -1))
                 {
@@ -139,7 +143,10 @@ public class BetterMovement : MonoBehaviour
                 {
                     musashi.transform.position = respawn.position;
                 }
-                    
+
+
+
+                
               
             }
         }

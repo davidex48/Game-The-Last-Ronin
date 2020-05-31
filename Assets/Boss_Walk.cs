@@ -7,18 +7,22 @@ public class Boss_Walk : StateMachineBehaviour
     //Script que controla al Boss
     public float speed = 2.5f;
     public float attackRange = 3f;
- 
+    private bool canAttack;
     Transform player;
     Rigidbody2D rb;
     Boss boss;
+    GameObject script;
 
+
+ 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //current_time -= Time.deltaTime;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
         boss = animator.GetComponent<Boss>();
-
+        //canAttack = script.GetComponent<BossHealth>().canAttack();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -30,8 +34,9 @@ public class Boss_Walk : StateMachineBehaviour
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
-        if (Vector2.Distance(player.position, rb.position) <= attackRange)
-        {
+        canAttack = boss.canAttack();
+        if (Vector2.Distance(player.position, rb.position) <= attackRange && canAttack)// && current_time <= 0)
+        { 
             animator.SetTrigger("Attack");
         }
     }
@@ -41,4 +46,10 @@ public class Boss_Walk : StateMachineBehaviour
     {
         animator.ResetTrigger("Attack");
     }
+
+
+
+
+
+
 }
